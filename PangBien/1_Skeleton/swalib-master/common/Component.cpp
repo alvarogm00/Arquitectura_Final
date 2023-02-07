@@ -7,7 +7,7 @@ CollisionComponent::CollisionComponent(float _radius, int _id)
 {
 	radius = _radius;
 	id = _id;
-	entMsg = new EntCollisionMsg();
+	projMsg = new ProjectileCollisionMsg();
 	limitMsg = new LimitWorldCollMsg();
 }
 
@@ -44,13 +44,33 @@ vec2* CollisionComponent::GetPosition()
 void CollisionComponent::Slot()
 {
 	const int numBalls = CGameLogic::instance()->GetNumBalls();
-	std::vector<Entity> entities = *CGameLogic::instance()->GetEntitiesArray();
+	std::vector<Entity> entities = *CGameLogic::instance()->GetPlayerEntitiesArray();
 
 	vec2 vel = m_Owner->FindComponent<MovementComponent>()->GetVelocity();
 
 	bool collision = false;
 	int colliding_ball = -1;
-	for (int j = 0; j < numBalls; j++)
+	Entity otherEntity;
+
+	for (size_t i = 0; i < entities.size(); i++)
+	{
+		vec2 otherPos = *entities[i].FindComponent<CollisionComponent>()->GetPosition();
+		float otherRadius = entities[i].FindComponent<CollisionComponent>()->GetRadius();
+		vec2 otherVel = entities[i].FindComponent<MovementComponent>()->GetVelocity();
+
+		if (newPos + vel != otherPos + otherVel)
+		{
+			float limit2 = (radius + otherRadius) * (radius + otherRadius);
+			if (vlen2(newPos - otherPos) <= limit2)
+			{
+				collision = true;
+				otherEntity = entities[i];
+				break;
+			}
+
+		}
+	}
+	/*for (int j = 0; j < numBalls; j++)
 	{
 		if (id != j)
 		{
@@ -66,30 +86,29 @@ void CollisionComponent::Slot()
 				}
 			}
 		}
-	}
+	}*/
 
 	if (!collision) {
 		pos = newPos;
-		//m_Owner->FindComponent<RenderComponent>()->SetPos(pos);
 	}
 	else {
 		// Rebound!
 		vel = vel * -1.0f;
-		entities[colliding_ball].FindComponent<MovementComponent>()->GetVelocity() *= -1;
-		//m_Owner->FindComponent<MovementComponent>()->SetVelocity(vel);
-		m_Owner->ReceiveMessage(entMsg);
+		//entities[colliding_ball].FindComponent<MovementComponent>()->GetVelocity() *= -1;
+		if (otherEntity.GetType() == Entity::BIG_BALL)
+			m_Owner->ReceiveMessage(projMsg);
+		else if (otherEntity.GetType() == Entity::PLAYER)
+			otherEntity.ReceiveMessage(ballMsg);
 	}
 
 	// Rebound on margins.
 	if ((pos.x > SCR_WIDTH) || (pos.x < 0)) {
 		vel.x *= -1.0;
 		m_Owner->ReceiveMessage(limitMsg);
-		//m_Owner->FindComponent<MovementComponent>()->SetVelocity(vel);
 	}
 	if ((pos.y > SCR_HEIGHT) || (pos.y < 0)) {
 		vel.y *= -1.0;
 		m_Owner->ReceiveMessage(limitMsg);
-		//m_Owner->FindComponent<MovementComponent>()->SetVelocity(vel);
 	}
 }
 
@@ -109,8 +128,7 @@ MovementComponent::MovementComponent(vec2 _pos, vec2 _vel)
 
 void MovementComponent::Slot()
 {
-	pos = pos + vel * elapsedTime;//m_Owner->GetElapsedTime();
-	//m_Owner->FindComponent<CollisionComponent>()->SetPos(pos);
+	pos = pos + vel * elapsedTime;
 	newPosMsg->newPos = pos;
 	m_Owner->ReceiveMessage(newPosMsg);
 }

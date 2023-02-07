@@ -1,0 +1,11 @@
+Bolas: 
+Tienen componente de Movimiento, Colision y Renderizado. 
+- Dependiendo del tipo de bola que sean, el componente de colisión desactiva la bola y llama al gamelogic que spawnea 2, dándoles a sus movement component velocidad 
+en direcciones opuestas, o elimina la bola. Cuando la bola colisiona con el borde lateral, se le da a la velocidad en x y en y el valor opuesto. Cuando colisiona con el borde inferior solo se invierte la
+velocidad en y. 
+- El movement component tiene que actualizar la posición en los valores x e y a una velocidad constante, esta velocidad se invertirá a partir de los mensajes que reciba del
+del colision component. Cuando la bola lleve cierto tiempo subiendo, se invierte la velocidad en y.
+- El render component llama al draw del sprite en la posicion de la entity. 
+
+Jugador: 
+Tiene componente de Movimiento, Colision y Renderizado. 

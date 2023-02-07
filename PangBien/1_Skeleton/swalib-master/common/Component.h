@@ -26,7 +26,8 @@ class CollisionComponent : public Component
 	vec2 newPos;
 	float  radius;	// Radius.
 	int id;
-	EntCollisionMsg* entMsg;
+	ProjectileCollisionMsg* projMsg;
+	BallCollisionMsg* ballMsg;
 	LimitWorldCollMsg* limitMsg; 
 
 public:

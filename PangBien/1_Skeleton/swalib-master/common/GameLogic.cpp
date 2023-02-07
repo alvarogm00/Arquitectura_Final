@@ -29,13 +29,6 @@ void CGameLogic::InitGameLogic(GLuint* _texsmallball)
 		newEntity->AddComponent(rendComponent);
 
 		m_entities.push_back(*newEntity);
-		/*tBalls[i].SetPos(vec2(CORE_FRand(0.0, SCR_WIDTH), CORE_FRand(0.0, SCR_HEIGHT)));
-		tBalls[i].SetVel(vec2(CORE_FRand(-MAX_BALL_SPEED, +MAX_BALL_SPEED), CORE_FRand(-MAX_BALL_SPEED, +MAX_BALL_SPEED)));
-		tBalls[i].SetRadius(16.f);
-		tBalls[i].SetSprite(tBalls[i].GetPos(), vec2(tBalls[i].GetRadius() * 2.f, tBalls[i].GetRadius() * 2.f), *_texsmallball);
-		tBalls[i].SetIndex(i);
-		sprites[i] = tBalls[i].GetSprite();*/
-
 	}
 }
 
@@ -44,8 +37,6 @@ void CGameLogic::UpdateGameLogic(float _fixedTick)
 	for (int i = 0; i < NUM_BALLS; i++) {
 		m_entities[i].SetElapsedTime(_fixedTick);
 		m_entities[i].Slot();
-		// New Pos.
-		//tBalls[i].Slot(_fixedTick);
 	}
 }
 
@@ -65,18 +56,7 @@ std::vector<Entity>* CGameLogic::GetEntitiesArray()
 	return &m_entities;
 }
 
-
-//SBall* CGameLogic::GetBallsArray()
-//{
-//	return nullptr;
-//	//return tBalls;
-//}
-//
-//CSprite** CGameLogic::GetSpritesArray()
-//{
-//	return nullptr;
-//	//return sprites;
-//}
-
-
-
+std::vector<Entity>* CGameLogic::GetPlayerEntitiesArray()
+{
+	return &m_playerEntities;
+}

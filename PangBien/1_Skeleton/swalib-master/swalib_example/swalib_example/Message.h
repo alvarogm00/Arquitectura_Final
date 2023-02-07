@@ -29,3 +29,13 @@ class NewPosMsg : public Message
 public:
 	vec2 newPos;
 };
+
+class ProjectileCollisionMsg : public Message
+{
+
+};
+
+class BallCollisionMsg : public Message
+{
+
+};
