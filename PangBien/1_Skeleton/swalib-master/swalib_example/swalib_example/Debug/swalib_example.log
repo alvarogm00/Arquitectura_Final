@@ -1,0 +1,3 @@
+﻿  Component.cpp
+E:\Apuntes\Master\Ingenieria\Arquitectura-ECS\ECS\1_Skeleton\swalib-master\common\SBall.h(6,10): warning C4067: símbolos (token) inesperados después de la directiva del preprocesador; se esperaba una nueva línea
+  swalib_example.vcxproj -> E:\Apuntes\Master\Ingenieria\Arquitectura-ECS\ECS\1_Skeleton\swalib-master\swalib_example\Debug\swalib_example.exe
