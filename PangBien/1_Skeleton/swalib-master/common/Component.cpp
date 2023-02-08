@@ -3,30 +3,18 @@
 #include "Entity.h"
 #include "Renderer.h"
 
-CollisionComponent::CollisionComponent(float _radius, int _id)
+CollisionComponent::CollisionComponent()
 {
-	radius = _radius;
-	id = _id;
 	projMsg = new ProjectileCollisionMsg();
 	limitMsg = new LimitWorldCollMsg();
 }
 
-void CollisionComponent::SetIndex(int _id)
-{
-	id = _id;
-}
-
-int CollisionComponent::GetIndex() const
-{
-	return id;
-}
-
-void CollisionComponent::SetRadius(float _radius)
+void CircleCollision::SetRadius(float _radius)
 {
 	radius = _radius;
 }
 
-float CollisionComponent::GetRadius() const
+float CircleCollision::GetRadius() const
 {
 	return radius;
 }
@@ -41,20 +29,95 @@ vec2* CollisionComponent::GetPosition()
 	return &pos;
 }
 
+void RectCollision::SetSize(vec2& _size)
+{
+	size = _size;
+}
+
+vec2* RectCollision::GetSize()
+{
+	return &size;
+}
+
+float CollisionComponent::Clamp(float _value, float _minvalue, float _maxValue)
+{
+	if (_value < _minvalue)
+	{
+		_value = _minvalue;
+	}
+	else if (_value > _maxValue)
+	{
+		_value = _maxValue;
+	}
+	else
+		_value = _value;
+
+	return _value;
+}
+
+
 void CollisionComponent::Slot()
 {
-	const int numBalls = CGameLogic::instance()->GetNumBalls();
-	std::vector<Entity> entities = *CGameLogic::instance()->GetPlayerEntitiesArray();
+}
 
-	vec2 vel = m_Owner->FindComponent<MovementComponent>()->GetVelocity();
+void CollisionComponent::ReceiveMessage(Message* msg)
+{
+	NewPosMsg* npMsg = dynamic_cast<NewPosMsg*>(msg);
+	if (npMsg)
+		newPos = (npMsg->newPos);
+}
+
+bool CollisionComponent::checkCircleCircle(const vec2& pos1, float radius1, const vec2& pos2, float radius2)
+{
+	float distance = vlen2(pos1 - pos2);
+	float radiusSum = radius1 + radius2;
+	if (distance < radiusSum)
+		return true;
+	else
+		return false;
+}
+
+bool CollisionComponent::checkCircleRect(const vec2& circlePos, float circleRadius, const vec2& rectPos, const vec2& rectSize)
+{
+	float closestX = CollisionComponent::Clamp(circlePos.x, rectPos.x, (rectPos.x + rectSize.x));
+	float closestY = CollisionComponent::Clamp(circlePos.y, rectPos.y, (rectPos.y + rectSize.y));
+
+	vec2 closestPos(closestX, closestY);
+	float shortestDistance = vlen2(closestPos - circlePos);
+	if (shortestDistance < circleRadius)
+	{
+		return true;
+	}
+	else
+		return false;
+}
+
+void CircleCollision::Slot()
+{
+	//const int numBalls = CGameLogic::instance()->GetNumBalls();
+
+	//int colliding_ball = -1;
+	//Entity otherEntity;
 
 	bool collision = false;
-	int colliding_ball = -1;
-	Entity otherEntity;
+	std::vector<Entity> entities = *CGameLogic::instance()->GetPlayerEntitiesArray();
+	vec2 vel = m_Owner->FindComponent<MovementComponent>()->GetVelocity();
 
 	for (size_t i = 0; i < entities.size(); i++)
 	{
-		vec2 otherPos = *entities[i].FindComponent<CollisionComponent>()->GetPosition();
+		collision = entities[i].FindComponent<CollisionComponent>()->collides(*this);
+		if (collision)
+		{
+			if (entities[i].GetType() == Entity::PROYECTILE)
+			{
+				m_Owner->ReceiveMessage(projMsg);
+			}
+			else if (entities[i].GetType() == Entity::PLAYER)
+			{
+				entities[i].ReceiveMessage(ballMsg);
+			}
+		}
+		/*vec2 otherPos = *entities[i].FindComponent<CollisionComponent>()->GetPosition();
 		float otherRadius = entities[i].FindComponent<CollisionComponent>()->GetRadius();
 		vec2 otherVel = entities[i].FindComponent<MovementComponent>()->GetVelocity();
 
@@ -68,25 +131,8 @@ void CollisionComponent::Slot()
 				break;
 			}
 
-		}
+		}*/
 	}
-	/*for (int j = 0; j < numBalls; j++)
-	{
-		if (id != j)
-		{
-			vec2 otherPos = entities[j].FindComponent<CollisionComponent>()->pos;
-			vec2 otherVel = entities[j].FindComponent<MovementComponent>()->GetVelocity();
-			float otherRadius = entities[j].FindComponent<CollisionComponent>()->radius;
-			if (newPos + vel != otherPos + otherVel) {
-				float limit2 = (radius + otherRadius) * (radius + otherRadius);
-				if (vlen2(newPos - otherPos) <= limit2) {
-					collision = true;
-					colliding_ball = j;
-					break;
-				}
-			}
-		}
-	}*/
 
 	if (!collision) {
 		pos = newPos;
@@ -94,29 +140,51 @@ void CollisionComponent::Slot()
 	else {
 		// Rebound!
 		vel = vel * -1.0f;
-		//entities[colliding_ball].FindComponent<MovementComponent>()->GetVelocity() *= -1;
-		if (otherEntity.GetType() == Entity::BIG_BALL)
-			m_Owner->ReceiveMessage(projMsg);
-		else if (otherEntity.GetType() == Entity::PLAYER)
-			otherEntity.ReceiveMessage(ballMsg);
+		//if (otherEntity.GetType() == Entity::BIG_BALL)
+		//	m_Owner->ReceiveMessage(projMsg);
+		//else if (otherEntity.GetType() == Entity::PLAYER)
+		//	otherEntity.ReceiveMessage(ballMsg);
 	}
 
 	// Rebound on margins.
 	if ((pos.x > SCR_WIDTH) || (pos.x < 0)) {
-		vel.x *= -1.0;
+		vel *= -1.0;
 		m_Owner->ReceiveMessage(limitMsg);
 	}
 	if ((pos.y > SCR_HEIGHT) || (pos.y < 0)) {
-		vel.y *= -1.0;
+		vel *= -1.0;
 		m_Owner->ReceiveMessage(limitMsg);
 	}
 }
 
-void CollisionComponent::ReceiveMessage(Message* msg)
+bool CircleCollision::collides(const CollisionComponent& other) const
 {
-	NewPosMsg* npMsg = dynamic_cast<NewPosMsg*>(msg);
-	if (npMsg)
-		newPos = (npMsg->newPos);
+	return other.collides(pos, radius);
+}
+
+bool CircleCollision::collides(const vec2& circlePos, float circleRadius) const
+{
+	return checkCircleCircle(pos, radius, circlePos, circleRadius);
+}
+
+bool CircleCollision::collides(const vec2& rectPos, const vec2& rectSize) const
+{
+	return checkCircleRect(pos, radius, rectPos, rectSize);
+}
+
+bool RectCollision::collides(const CollisionComponent& other) const
+{
+	return other.collides(pos, size);
+}
+
+bool RectCollision::collides(const vec2& circlePos, float circleRadius) const
+{
+	return checkCircleRect(circlePos, circleRadius, pos, size);
+}
+
+bool RectCollision::collides(const vec2& rectPos, const vec2& rectSize) const
+{
+	return false;
 }
 
 MovementComponent::MovementComponent(vec2 _pos, vec2 _vel)

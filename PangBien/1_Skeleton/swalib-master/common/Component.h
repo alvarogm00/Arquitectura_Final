@@ -22,26 +22,59 @@ public:
 
 class CollisionComponent : public Component
 {
-	vec2   pos;	// Position.
+protected:
+	vec2 pos;	// Position.
 	vec2 newPos;
-	float  radius;	// Radius.
-	int id;
-	ProjectileCollisionMsg* projMsg;
+	
 	BallCollisionMsg* ballMsg;
 	LimitWorldCollMsg* limitMsg; 
+	ProjectileCollisionMsg* projMsg;
 
 public:
-	CollisionComponent(float _radius, int _id);
+	CollisionComponent();
 
-	void SetIndex(int _id);
-	int GetIndex() const;
-	void SetRadius(float _radius);
-	float GetRadius() const;
 	void SetPos(vec2& _newPos);
 	vec2* GetPosition();
 
+	static float Clamp(float _value, float _minvalue, float _maxValue);
+
+	virtual bool collides(const CollisionComponent& other) const = 0;
+	virtual bool collides(const vec2& circlePos, float circleRadius) const = 0;
+	virtual bool collides(const vec2& rectPos, const vec2& rectSize) const = 0;
+
 	virtual void Slot() override;
 	virtual void ReceiveMessage(Message* msg) override;
+
+protected:
+	static bool checkCircleCircle(const vec2& pos1, float radius1, const vec2& pos2, float radius2);
+	static bool checkCircleRect(const vec2& circlePos, float circleRadius, const vec2& rectPos, const vec2& rectSize);
+};
+
+class CircleCollision : public CollisionComponent
+{
+	float radius;
+
+public:
+	virtual bool collides(const CollisionComponent& other) const override;
+	virtual bool collides(const vec2& circlePos, float circleRadius) const override;
+	virtual bool collides(const vec2& rectPos, const vec2& rectSize) const override;
+	virtual void Slot() override;
+
+	void SetRadius(float _radius);
+	float GetRadius() const;
+};
+
+class RectCollision : public CollisionComponent
+{
+	vec2 size;
+
+public:
+	virtual bool collides(const CollisionComponent& other) const override;
+	virtual bool collides(const vec2& circlePos, float circleRadius) const override;
+	virtual bool collides(const vec2& rectPos, const vec2& rectSize) const override;
+
+	void SetSize(vec2& _size);
+	vec2* GetSize();
 };
 
 class MovementComponent : public Component
