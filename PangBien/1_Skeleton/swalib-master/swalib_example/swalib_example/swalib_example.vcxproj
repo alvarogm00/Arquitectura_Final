@@ -133,6 +133,9 @@
     <ClCompile Include="..\..\common\stdafx.cpp" />
     <ClCompile Include="..\..\common\sys_win.cpp" />
     <ClCompile Include="..\..\common\TimeManager.cpp" />
+    <ClCompile Include="AbstractFactory.cpp" />
+    <ClCompile Include="Builder.cpp" />
+    <ClCompile Include="Level.cpp" />
     <ClCompile Include="Message.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -149,6 +152,9 @@
     <ClInclude Include="..\..\common\sys.h" />
     <ClInclude Include="..\..\common\TimeManager.h" />
     <ClInclude Include="..\..\common\vector2d.h" />
+    <ClInclude Include="AbstractFactory.h" />
+    <ClInclude Include="Builder.h" />
+    <ClInclude Include="Level.h" />
     <ClInclude Include="Message.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

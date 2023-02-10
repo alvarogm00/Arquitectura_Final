@@ -19,10 +19,16 @@ class EntCollisionMsg : public CollisionMsg
 
 };
 
-class LimitWorldCollMsg : public CollisionMsg
+class VertLimitWorldCollMsg : public CollisionMsg
 {
 
 };
+
+class HorLimitWorldCollMsg : public CollisionMsg
+{
+
+};
+
 
 class NewPosMsg : public Message
 {

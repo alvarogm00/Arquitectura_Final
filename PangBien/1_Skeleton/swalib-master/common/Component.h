@@ -27,7 +27,8 @@ protected:
 	vec2 newPos;
 	
 	BallCollisionMsg* ballMsg;
-	LimitWorldCollMsg* limitMsg; 
+	VertLimitWorldCollMsg* vertLimitMsg; 
+	HorLimitWorldCollMsg* horLimitMsg; 
 	ProjectileCollisionMsg* projMsg;
 
 public:
@@ -55,10 +56,12 @@ class CircleCollision : public CollisionComponent
 	float radius;
 
 public:
+	CircleCollision(float _radius);
 	virtual bool collides(const CollisionComponent& other) const override;
 	virtual bool collides(const vec2& circlePos, float circleRadius) const override;
 	virtual bool collides(const vec2& rectPos, const vec2& rectSize) const override;
 	virtual void Slot() override;
+	virtual void ReceiveMessage(Message* msg) override;
 
 	void SetRadius(float _radius);
 	float GetRadius() const;
@@ -72,6 +75,8 @@ public:
 	virtual bool collides(const CollisionComponent& other) const override;
 	virtual bool collides(const vec2& circlePos, float circleRadius) const override;
 	virtual bool collides(const vec2& rectPos, const vec2& rectSize) const override;
+	virtual void Slot() override;
+	virtual void ReceiveMessage(Message* msg) override;
 
 	void SetSize(vec2& _size);
 	vec2* GetSize();

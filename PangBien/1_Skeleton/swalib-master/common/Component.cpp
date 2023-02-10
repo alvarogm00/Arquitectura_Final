@@ -6,7 +6,7 @@
 CollisionComponent::CollisionComponent()
 {
 	projMsg = new ProjectileCollisionMsg();
-	limitMsg = new LimitWorldCollMsg();
+	//vertLimitMsg = new LimitWorldCollMsg();
 }
 
 void CircleCollision::SetRadius(float _radius)
@@ -100,17 +100,18 @@ void CircleCollision::Slot()
 	//Entity otherEntity;
 
 	bool collision = false;
-	std::vector<Entity> entities = *CGameLogic::instance()->GetPlayerEntitiesArray();
+	std::vector<Entity*> entities = CGameLogic::instance()->GetPlayerEntitiesArray();
 	vec2 vel = m_Owner->FindComponent<MovementComponent>()->GetVelocity();
 
 	for (size_t i = 0; i < entities.size(); i++)
 	{
 		collision = entities[i].FindComponent<CollisionComponent>()->collides(*this);
+
 		if (collision)
 		{
 			if (entities[i].GetType() == Entity::PROYECTILE)
 			{
-				m_Owner->ReceiveMessage(projMsg);
+				ReceiveMessage(projMsg);
 			}
 			else if (entities[i].GetType() == Entity::PLAYER)
 			{
@@ -148,12 +149,43 @@ void CircleCollision::Slot()
 
 	// Rebound on margins.
 	if ((pos.x > SCR_WIDTH) || (pos.x < 0)) {
-		vel *= -1.0;
-		m_Owner->ReceiveMessage(limitMsg);
+		//vel *= -1.0;
+		m_Owner->ReceiveMessage(horLimitMsg);
 	}
 	if ((pos.y > SCR_HEIGHT) || (pos.y < 0)) {
-		vel *= -1.0;
-		m_Owner->ReceiveMessage(limitMsg);
+		//vel *= -1.0;
+		m_Owner->ReceiveMessage(vertLimitMsg);
+	}
+}
+
+void CircleCollision::ReceiveMessage(Message* msg)
+{
+	ProjectileCollisionMsg* projMsg = dynamic_cast<ProjectileCollisionMsg*>(msg);
+	VertLimitWorldCollMsg* vertMsg = dynamic_cast<VertLimitWorldCollMsg*>(msg);
+
+	if (projMsg)
+	{
+		if (m_Owner->GetType() == Entity::BIG_BALL)
+		{
+			CGameLogic::instance()->CreateBalls(Entity::MEDIUM_BALL, *m_Owner->FindComponent<CollisionComponent>()->GetPosition());
+			m_Owner->SetIsActive(false);
+		}
+		else if (m_Owner->GetType() == Entity::MEDIUM_BALL)
+		{
+			CGameLogic::instance()->CreateBalls(Entity::SMALL_BALL, *m_Owner->FindComponent<CollisionComponent>()->GetPosition());
+			m_Owner->SetIsActive(false);
+		}
+		else if (m_Owner->GetType() == Entity::SMALL_BALL)
+		{
+			m_Owner->SetIsActive(false);
+		}
+	}
+	else if (vertMsg)
+	{
+		if (m_Owner->GetType() == Entity::PROYECTILE)
+		{
+			m_Owner->SetIsActive(false);
+		}
 	}
 }
 
@@ -185,6 +217,19 @@ bool RectCollision::collides(const vec2& circlePos, float circleRadius) const
 bool RectCollision::collides(const vec2& rectPos, const vec2& rectSize) const
 {
 	return false;
+}
+
+void RectCollision::Slot()
+{
+}
+
+void RectCollision::ReceiveMessage(Message* msg)
+{
+	BallCollisionMsg* ballMsg = dynamic_cast<BallCollisionMsg*>(msg);
+	if (ballMsg)
+	{
+
+	}
 }
 
 MovementComponent::MovementComponent(vec2 _pos, vec2 _vel)
@@ -229,7 +274,7 @@ void MovementComponent::SetElapsedTime(float _elapsedTime)
 void MovementComponent::ReceiveMessage(Message* msg)
 {
 	EntCollisionMsg* entMsg = dynamic_cast<EntCollisionMsg*>(msg);
-	LimitWorldCollMsg* limitMsg = dynamic_cast<LimitWorldCollMsg*>(msg);
+	//LimitWorldCollMsg* limitMsg = dynamic_cast<LimitWorldCollMsg*>(msg);
 
 	if (entMsg || limitMsg)
 		vel *= -1;
