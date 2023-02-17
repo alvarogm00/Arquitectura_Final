@@ -11,12 +11,12 @@ protected:
 	GLuint* _texbigball;
 	GLuint* _texmediumball;
 	GLuint* _texsmallball;
-
+	Entity::EntityType starterType;
 	//std::vector<Entity*> m_entitites;
 	//std::vector<Entity*> m_initEntities;
 	//std::vector<Entity*> m_sedondaryEntities;
 public:
-	virtual void CreateBalls(Entity::EntityType _starterType) = 0;
+	virtual void CreateBalls() = 0;
 	
 	void CreatePlayer();
 	int GetNumBalls();
