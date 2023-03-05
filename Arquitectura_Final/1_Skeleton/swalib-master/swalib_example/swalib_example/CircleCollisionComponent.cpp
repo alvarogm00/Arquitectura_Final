@@ -1,5 +1,6 @@
 #include "CircleCollisionComponent.h"
 #include "../../common/GameLogic.h"
+#include "MovementComponent.h"
 
 CircleCollisionComponent::CircleCollisionComponent(float _radius)
 {
@@ -10,7 +11,7 @@ void CircleCollisionComponent::Slot()
 {
 	bool collision = false;
 	std::vector<Entity*> entities = CGameLogic::instance()->GetPlayerEntitiesArray();
-	vec2 vel = *m_Owner->FindComponent<MovementComponent>()->GetVelocity();
+	vec2 vel = m_Owner->FindComponent<MovementComponent>()->GetVelocity();
 
 	for (size_t i = 0; i < entities.size(); i++)
 	{
@@ -21,6 +22,7 @@ void CircleCollisionComponent::Slot()
 			if (entities[i]->GetType() == Entity::PROYECTILE)
 			{
 				RecieveMessage(projMsg);
+				entities[i]->ReceiveMessage(ballMsg);
 			}
 			else if (entities[i]->GetType() == Entity::PLAYER)
 			{
@@ -56,25 +58,34 @@ void CircleCollisionComponent::RecieveMessage(Message* _msg)
 {
 	ProjectileCollisionMsg* projMsg = dynamic_cast<ProjectileCollisionMsg*>(_msg);
 	VertLimitWorldCollMsg* vertMsg = dynamic_cast<VertLimitWorldCollMsg*>(_msg);
+	BallCollisionMsg* ballMsg = dynamic_cast<BallCollisionMsg*>(_msg);
 
 	if (projMsg)
 	{
 		if (m_Owner->GetType() == Entity::BIG_BALL)
 		{
-			CGameLogic::instance()->CreateBalls(Entity::MEDIUM_BALL, *m_Owner->FindComponent<CollisionComponent>()->GetPosition());
+			CGameLogic::instance()->ActivateBalls(Entity::MEDIUM_BALL, *m_Owner->FindComponent<CollisionComponent>()->GetPosition());
 			m_Owner->SetIsActive(false);
 		}
 		else if (m_Owner->GetType() == Entity::MEDIUM_BALL)
 		{
-			CGameLogic::instance()->CreateBalls(Entity::SMALL_BALL, *m_Owner->FindComponent<CollisionComponent>()->GetPosition());
+			CGameLogic::instance()->ActivateBalls(Entity::SMALL_BALL, *m_Owner->FindComponent<CollisionComponent>()->GetPosition());
 			m_Owner->SetIsActive(false);
 		}
 		else if (m_Owner->GetType() == Entity::SMALL_BALL)
 		{
 			m_Owner->SetIsActive(false);
+
 		}
 	}
 	else if (vertMsg)
+	{
+		if (m_Owner->GetType() == Entity::PROYECTILE)
+		{
+			m_Owner->SetIsActive(false);
+		}
+	}
+	else if (ballMsg)
 	{
 		if (m_Owner->GetType() == Entity::PROYECTILE)
 		{

@@ -1,5 +1,6 @@
 #include "GameLogic.h"
 #include "../swalib_example/swalib_example/Component.h"
+#include "../swalib_example/swalib_example/MovementComponent.h"
 #include "../common/Renderer.h"
 
 CGameLogic* CGameLogic::_instance = nullptr;
@@ -15,27 +16,17 @@ CGameLogic* CGameLogic::instance()
 
 CGameLogic::CGameLogic() {}
 
-void CGameLogic::InitGameLogic(GLuint* _texbigball, GLuint* _texmediumball, GLuint* _texsmallball)
+void CGameLogic::InitGameLogic(AbstractFactory* _factory)
 {
 	// Init game state.
-	if (_texbigball != 0)
-	{
-		for (int i = 0; i < NUM_BALLS; i++) {
-			Entity* newEntity = new Entity(Entity::BIG_BALL);
-			/*MovementComponent* movComponent = new MovementComponent(vec2(CORE_FRand(0.0, SCR_WIDTH), CORE_FRand(0.0, SCR_HEIGHT)), vec2(CORE_FRand(-MAX_BALL_SPEED, +MAX_BALL_SPEED), CORE_FRand(-MAX_BALL_SPEED, +MAX_BALL_SPEED)));
-			CollisionComponent* colComponent = new CircleCollision(16.f);
-			RenderComponent* rendComponent = new RenderComponent(*_texbigball, vec2(16.0f * 2.0f, 16.0f * 2.0f), nullptr);*/
+	_factory->CreateBalls();
+	_factory->CreatePlayer();
+}
 
-			//newEntity->AddComponent(movComponent);
-			//newEntity->AddComponent(colComponent);
-			//newEntity->AddComponent(rendComponent);
-
-			m_entities.push_back(newEntity);
-		}
-	}
-	else
-	{
-	}
+void CGameLogic::SetFactories(AbstractFactory* _factory, AbstractFactory* _factory2)
+{
+	m_absFactory1 = _factory;
+	m_absFactory2 = _factory2;
 }
 
 void CGameLogic::UpdateGameLogic(float _fixedTick)
@@ -52,38 +43,91 @@ void CGameLogic::UpdateGameLogic(float _fixedTick)
 void CGameLogic::CloseGameLogic()
 {
 	m_entities.~vector();
-	delete _instance;
+	//delete _instance;
 }
 
-void CGameLogic::CreateBalls(Entity::EntityType _type, vec2& _pos, GLuint* _texball)
+void CGameLogic::AddBall(Entity* _ball)
 {
-	Entity* newEntity = new Entity(_type);
-	/*if(_type == Entity::BIG_BALL)
-		MovementComponent* movComponent = new MovementComponent(_pos, m_bigVel);
-	else if(_type == Entity::MEDIUM_BALL)
-		MovementComponent* movComponent = new MovementComponent(_pos, m_medVel);
-	else if(_type == Entity::SMALL_BALL)
-		MovementComponent* movComponent = new MovementComponent(_pos, m_smallVel);
+	m_entities.push_back(_ball);
 
-	CollisionComponent* colComponent = new CircleCollision(16.f);
-	RenderComponent* rendComponent = new RenderComponent(*_texball, vec2(16.0f * 2.0f, 16.0f * 2.0f), nullptr);*/
+	if (_ball->BIG_BALL)
+		m_bigBalls.push_back(_ball);
+	else if (_ball->MEDIUM_BALL)
+		m_medBalls.push_back(_ball);
+	else if (_ball->SMALL_BALL)
+		m_smallBalls.push_back(_ball);
+}
 
-	//newEntity->AddComponent(movComponent);
-	//newEntity->AddComponent(colComponent);
-	//newEntity->AddComponent(rendComponent);
+void CGameLogic::ActivateBalls(Entity::EntityType _type, vec2& _pos)
+{
+	if (_type == Entity::MEDIUM_BALL)
+	{
+		m_medBalls.back()->SetIsActive(true);
+		m_medBalls.pop_back();
 
-	m_entities.push_back(newEntity);
+		vec2 newVel = m_medBalls.back()->FindComponent<MovementComponent>()->GetVelocity();
+		newVel *= vec2(-1.0, 1.0);
+		m_medBalls.back()->FindComponent<MovementComponent>()->SetVelocity(newVel);
+		m_medBalls.back()->SetIsActive(true);
+		m_medBalls.pop_back();
+	}
+	else if (_type == Entity::SMALL_BALL)
+	{
+		m_smallBalls.back()->SetIsActive(true);
+		m_smallBalls.pop_back();
+
+		vec2 newVel = m_smallBalls.back()->FindComponent<MovementComponent>()->GetVelocity();
+		newVel *= vec2(-1.0, 1.0);
+		m_smallBalls.back()->FindComponent<MovementComponent>()->SetVelocity(newVel);
+		m_smallBalls.back()->SetIsActive(true);
+		m_smallBalls.pop_back();
+	}
+}
+
+void CGameLogic::ClearArrays()
+{
+	for (size_t i = 0; i < m_entities.size(); i++)
+	{
+		delete m_entities[i];
+	};
+
+	m_entities.clear();
+	m_bigBalls.clear();
+	m_medBalls.clear();
+	m_smallBalls.clear();
+}
+
+void CGameLogic::CheckGameState()
+{
+	if (m_smallBalls.empty())
+	{
+		if (m_level == 0)
+		{
+			ClearArrays();
+			InitGameLogic(m_absFactory2);
+		}
+		//siguiente nivel o acabar el juego
+	}
+}
+
+void CGameLogic::RestartLevel()
+{
+	ClearArrays();
+	if(m_level == 0)
+		InitGameLogic(m_absFactory1);
+	else
+		InitGameLogic(m_absFactory2);
 }
 
 void CGameLogic::SetNumBalls(int _numballs)
 {
 	NUM_BALLS = _numballs;
 }
-
-int CGameLogic::GetNumBalls() const
-{
-	return NUM_BALLS;
-}
+//
+//int CGameLogic::GetNumBalls() const
+//{
+//	return NUM_BALLS;
+//}
 
 std::vector<Entity*> CGameLogic::GetEntitiesArray()
 {

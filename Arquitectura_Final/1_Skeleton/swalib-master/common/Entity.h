@@ -18,6 +18,7 @@ public:
 	enum EntityType { BIG_BALL, MEDIUM_BALL, SMALL_BALL, PLAYER, PROYECTILE };
 	EntityType type;
 
+	Entity() {};
 	Entity(EntityType _type);
 	~Entity();
 

@@ -3,8 +3,7 @@
 class Lvl1Factory : public AbstractFactory
 {
 public:
-	Lvl1Factory(int _numBalls, Entity::EntityType _starterType);
-
-	virtual void CreateBalls() override;
+	Lvl1Factory(int _numBalls, float m_bigVel, float m_medVel, float m_smallVel, Entity::EntityType _starterType, GLuint* m_texbigball, GLuint* m_texmediumball, GLuint* m_texsmallball);
+	void CreateBalls() override;
 };
 

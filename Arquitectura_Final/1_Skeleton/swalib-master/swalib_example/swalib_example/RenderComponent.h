@@ -10,6 +10,7 @@ class RenderComponent : public Component
 	CSprite* sprite;
 
 public:
+	RenderComponent();
 	RenderComponent(GLuint& _gfx, vec2& _size, CSprite* _sprite);
 
 	void SetSize(vec2& _size);

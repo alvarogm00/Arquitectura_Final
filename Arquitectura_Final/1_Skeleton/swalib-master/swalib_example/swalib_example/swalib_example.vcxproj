@@ -139,6 +139,7 @@
     <ClCompile Include="Component.cpp" />
     <ClCompile Include="Level.cpp" />
     <ClCompile Include="Lvl1Factory.cpp" />
+    <ClCompile Include="Lvl2Factory.cpp" />
     <ClCompile Include="Message.cpp" />
     <ClCompile Include="MovementComponent.cpp" />
     <ClCompile Include="RectColliderComponent.cpp" />
@@ -165,6 +166,7 @@
     <ClInclude Include="Component.h" />
     <ClInclude Include="Level.h" />
     <ClInclude Include="Lvl1Factory.h" />
+    <ClInclude Include="Lvl2Factory.h" />
     <ClInclude Include="Message.h" />
     <ClInclude Include="MovementComponent.h" />
     <ClInclude Include="RectColliderComponent.h" />

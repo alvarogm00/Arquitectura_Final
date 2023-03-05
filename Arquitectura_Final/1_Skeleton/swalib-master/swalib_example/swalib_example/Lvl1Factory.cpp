@@ -2,6 +2,20 @@
 #include "MovementComponent.h"
 #include "CircleCollisionComponent.h"
 #include "RenderComponent.h"
+#include "../../common/GameLogic.h"
+
+Lvl1Factory::Lvl1Factory(int _numBalls, float _bigVel, float _medVel, float _smallVel, Entity::EntityType _starterType, 
+	GLuint* _texbigball, GLuint* _texmediumball, GLuint* _texsmallball)
+{
+	numBalls = _numBalls;
+	m_bigVel = _bigVel;
+	m_medVel = _medVel;
+	m_smallVel = _smallVel;
+	starterType = _starterType;
+	m_texbigball = _texbigball;
+	m_texmediumball = _texmediumball;
+	m_texsmallball = _texsmallball;
+}
 
 void Lvl1Factory::CreateBalls()
 {
@@ -9,26 +23,39 @@ void Lvl1Factory::CreateBalls()
 	{
 		Entity* newEntity = new Entity(starterType);
 		MovementComponent* movComponent = new MovementComponent(vec2(0, 0), vec2(0, 0));
-		if(starterType == Entity::BIG_BALL)
-			movComponent = new MovementComponent(_pos, m_bigVel);
-		else if(starterType == Entity::MEDIUM_BALL)
-			movComponent = new MovementComponent(_pos, m_medVel);
-		else if(starterType == Entity::SMALL_BALL)
-			movComponent = new MovementComponent(_pos, m_smallVel);
+		CollisionComponent* colComponent = new CircleCollisionComponent(0.f);
+		RenderComponent* rendComponent = new RenderComponent();
 
-		CollisionComponent* colComponent = new CircleCollisionComponent(16.f);
-		RenderComponent* rendComponent = new RenderComponent(*_texball, vec2(16.0f * 2.0f, 16.0f * 2.0f), nullptr);
+		movComponent->SetVelocity(vec2(m_medVel, -m_medVel));
+		static_cast<CircleCollisionComponent*>(colComponent)->SetRadius(16.f);
+		rendComponent->SetGfx(*m_texmediumball);
+		rendComponent->SetSize(vec2(16.0f * 2.0f, 16.0f * 2.0f));
 
 		newEntity->AddComponent(movComponent);
 		newEntity->AddComponent(colComponent);
 		newEntity->AddComponent(rendComponent);
 
-		//m_entities.push_back(newEntity);
+		CGameLogic::instance()->AddBall(newEntity);
 	}
-}
 
-Lvl1Factory::Lvl1Factory(int _numBalls, Entity::EntityType _starterType)
-{
-	numBalls = _numBalls;
-	starterType = _starterType;
+	for (size_t i = 0; i < numBalls * 2; i++)
+	{
+		Entity* newEntity = new Entity();
+		MovementComponent* movComponent = new MovementComponent(vec2(0, 0), vec2(0, 0));
+		CollisionComponent* colComponent = new CircleCollisionComponent(0.f);
+		RenderComponent* rendComponent = new RenderComponent();
+
+		newEntity->SetType(Entity::SMALL_BALL);
+		movComponent->SetVelocity(vec2(m_smallVel, -m_smallVel));
+		static_cast<CircleCollisionComponent*>(colComponent)->SetRadius(16.f);
+		rendComponent->SetGfx(*m_texsmallball);
+		rendComponent->SetSize(vec2(16.0f * 2.0f, 16.0f * 2.0f));
+
+		newEntity->AddComponent(movComponent);
+		newEntity->AddComponent(colComponent);
+		newEntity->AddComponent(rendComponent);
+		newEntity->SetIsActive(false);
+
+		CGameLogic::instance()->AddBall(newEntity);
+	}
 }

@@ -1,6 +1,13 @@
 #include "RenderComponent.h"
 #include "../../common/Renderer.h"
 
+RenderComponent::RenderComponent()
+{
+	gfx = 0;
+	pos = vec2(0, 0);
+	SetSize(vec2(0,0));
+}
+
 RenderComponent::RenderComponent(GLuint& _gfx, vec2& _size, CSprite* _sprite)
 {
 	gfx = _gfx;

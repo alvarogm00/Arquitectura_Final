@@ -1,5 +1,6 @@
 #include "Entity.h"
-#include "Component.h"
+#include "../swalib_example/swalib_example/Component.h"
+#include "../swalib_example/swalib_example/MovementComponent.h"
 #include "GameLogic.h"
 
 Entity::Entity(EntityType _type)
@@ -84,6 +85,6 @@ void Entity::ReceiveMessage(Message* msg)
 {
 	for (auto compIt = m_Components.begin(); compIt != m_Components.end(); ++compIt)
 	{
-		(*compIt)->ReceiveMessage(msg);
+		(*compIt)->RecieveMessage(msg);
 	}
 }
