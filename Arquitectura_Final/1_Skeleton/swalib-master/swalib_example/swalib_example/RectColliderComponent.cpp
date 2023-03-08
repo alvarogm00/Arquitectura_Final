@@ -1,4 +1,5 @@
 #include "RectColliderComponent.h"
+#include "../../common/GameLogic.h"
 
 void RectColliderComponent::Slot()
 {
@@ -32,8 +33,13 @@ bool RectColliderComponent::collides(const vec2& rectPos, const vec2& rectSize) 
 void RectColliderComponent::RecieveMessage(Message* msg)
 {
 	BallCollisionMsg* ballMsg = dynamic_cast<BallCollisionMsg*>(msg);
-	if (ballMsg)
+	NewPosMsg* newPosMsg = dynamic_cast<NewPosMsg*>(msg);
+	if (newPosMsg)
 	{
-
+		SetPos(newPosMsg->newPos);
+	}
+	else if (ballMsg)
+	{
+		CGameLogic::instance()->BeginLevel(false);
 	}
 }

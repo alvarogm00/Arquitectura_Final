@@ -11,9 +11,9 @@ protected:
 	float m_medVel;
 	float m_smallVel;
 
-	GLuint* m_texbigball;
-	GLuint* m_texmediumball;
-	GLuint* m_texsmallball;
+	GLuint m_texbigball;
+	GLuint m_texmediumball;
+	GLuint m_texsmallball;
 	Entity::EntityType starterType;
 	//std::vector<Entity*> m_entitites;
 	//std::vector<Entity*> m_initEntities;

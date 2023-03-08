@@ -41,7 +41,6 @@ vec2 RenderComponent::GetPos()
 	return pos;
 }
 
-
 void RenderComponent::RecieveMessage(Message* msg)
 {
 	NewPosMsg* npMsg = dynamic_cast<NewPosMsg*>(msg);

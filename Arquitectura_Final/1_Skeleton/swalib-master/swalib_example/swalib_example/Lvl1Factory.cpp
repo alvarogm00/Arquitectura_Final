@@ -2,10 +2,11 @@
 #include "MovementComponent.h"
 #include "CircleCollisionComponent.h"
 #include "RenderComponent.h"
+#include "../../common/Renderer.h"
 #include "../../common/GameLogic.h"
 
 Lvl1Factory::Lvl1Factory(int _numBalls, float _bigVel, float _medVel, float _smallVel, Entity::EntityType _starterType, 
-	GLuint* _texbigball, GLuint* _texmediumball, GLuint* _texsmallball)
+	GLuint& _texbigball, GLuint& _texmediumball, GLuint& _texsmallball)
 {
 	numBalls = _numBalls;
 	m_bigVel = _bigVel;
@@ -28,7 +29,7 @@ void Lvl1Factory::CreateBalls()
 
 		movComponent->SetVelocity(vec2(m_medVel, -m_medVel));
 		static_cast<CircleCollisionComponent*>(colComponent)->SetRadius(16.f);
-		rendComponent->SetGfx(*m_texmediumball);
+		rendComponent->SetGfx(m_texmediumball);
 		rendComponent->SetSize(vec2(16.0f * 2.0f, 16.0f * 2.0f));
 
 		newEntity->AddComponent(movComponent);
@@ -48,7 +49,7 @@ void Lvl1Factory::CreateBalls()
 		newEntity->SetType(Entity::SMALL_BALL);
 		movComponent->SetVelocity(vec2(m_smallVel, -m_smallVel));
 		static_cast<CircleCollisionComponent*>(colComponent)->SetRadius(16.f);
-		rendComponent->SetGfx(*m_texsmallball);
+		rendComponent->SetGfx(m_texsmallball);
 		rendComponent->SetSize(vec2(16.0f * 2.0f, 16.0f * 2.0f));
 
 		newEntity->AddComponent(movComponent);
@@ -57,5 +58,6 @@ void Lvl1Factory::CreateBalls()
 		newEntity->SetIsActive(false);
 
 		CGameLogic::instance()->AddBall(newEntity);
+		CRenderer::instance()->SetRenderComponent(rendComponent);
 	}
 }

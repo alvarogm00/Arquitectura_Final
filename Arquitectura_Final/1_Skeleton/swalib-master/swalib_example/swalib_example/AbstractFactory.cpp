@@ -12,6 +12,7 @@ void AbstractFactory::CreateBalls()
 		MovementComponent* movComponent = new MovementComponent(vec2(0, 0), vec2(0, 0));
 		CollisionComponent* colComponent = new CircleCollisionComponent(0.f);
 		RenderComponent* rendComponent = new RenderComponent();
+		CSprite* spriteComponent = new CSprite(vec2(0, 0), vec2(0, 0), 0);
 
 		if (starterType == Entity::BIG_BALL)
 		{
@@ -19,6 +20,7 @@ void AbstractFactory::CreateBalls()
 			static_cast<CircleCollisionComponent*>(colComponent)->SetRadius(16.f);
 			rendComponent->SetGfx(*m_texbigball);
 			rendComponent->SetSize(vec2(16.0f * 2.0f, 16.0f * 2.0f));
+			spriteComponent->SetGfx(m_texbigball);
 		}
 		else if (starterType == Entity::MEDIUM_BALL)
 		{

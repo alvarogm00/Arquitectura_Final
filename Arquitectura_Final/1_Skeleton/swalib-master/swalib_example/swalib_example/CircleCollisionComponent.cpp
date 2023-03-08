@@ -59,8 +59,13 @@ void CircleCollisionComponent::RecieveMessage(Message* _msg)
 	ProjectileCollisionMsg* projMsg = dynamic_cast<ProjectileCollisionMsg*>(_msg);
 	VertLimitWorldCollMsg* vertMsg = dynamic_cast<VertLimitWorldCollMsg*>(_msg);
 	BallCollisionMsg* ballMsg = dynamic_cast<BallCollisionMsg*>(_msg);
+	NewPosMsg* newPosMsg = dynamic_cast<NewPosMsg*>(_msg);
 
-	if (projMsg)
+	if (newPosMsg)
+	{
+		SetPos(newPosMsg->newPos);
+	}
+	else if (projMsg)
 	{
 		if (m_Owner->GetType() == Entity::BIG_BALL)
 		{

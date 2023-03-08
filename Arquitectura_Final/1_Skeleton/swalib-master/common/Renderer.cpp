@@ -40,7 +40,7 @@ void CRenderer::Draw(GLuint* _texbkg, float _elapsedTime, float _totalTime, floa
 
 	//// Render balls
 	for (int i = 0; i < 10; i++) {
-		sprites[i]->Draw();
+		m_renderComponents[i]->Slot();
 	}
 
 	 //Text
@@ -70,9 +70,9 @@ void CRenderer::End(GLuint* _texsmallball, GLuint* _texbkg)
 	FONT_End();
 }
 
-void CRenderer::SetSprite(int _i, CSprite* _sprite)
+void CRenderer::SetRenderComponent(RenderComponent* _renderComponent)
 {
-	sprites.push_back(_sprite);
+	m_renderComponents.push_back(_renderComponent);
 }
 
 CRenderer::CRenderer() {}

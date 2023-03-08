@@ -14,6 +14,11 @@ CGameLogic* CGameLogic::instance()
 	return _instance;
 }
 
+void CGameLogic::AddFactory(AbstractFactory* _factory)
+{
+	m_factories.push_back(_factory);
+}
+
 CGameLogic::CGameLogic() {}
 
 void CGameLogic::InitGameLogic(AbstractFactory* _factory)
@@ -110,13 +115,13 @@ void CGameLogic::CheckGameState()
 	}
 }
 
-void CGameLogic::RestartLevel()
+void CGameLogic::BeginLevel(bool _isLevelFinished)
 {
+	if (_isLevelFinished)
+		++m_level;
+
 	ClearArrays();
-	if(m_level == 0)
-		InitGameLogic(m_absFactory1);
-	else
-		InitGameLogic(m_absFactory2);
+	InitGameLogic(m_factories[m_level]);
 }
 
 void CGameLogic::SetNumBalls(int _numballs)

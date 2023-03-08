@@ -42,6 +42,10 @@ void MovementComponent::SetElapsedTime(float _elapsedTime)
 void MovementComponent::RecieveMessage(Message* msg)
 {
 	EntCollisionMsg* entMsg = dynamic_cast<EntCollisionMsg*>(msg);
+	if (entMsg)
+	{
+
+	}
 	//LimitWorldCollMsg* limitMsg = dynamic_cast<LimitWorldCollMsg*>(msg);
 
 	//if (entMsg || limitMsg)

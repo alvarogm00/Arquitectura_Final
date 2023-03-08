@@ -10,6 +10,8 @@ class CGameLogic
 public:
 	static CGameLogic* instance();
 
+	void AddFactory(AbstractFactory* _factory);
+
 	void InitGameLogic(AbstractFactory* _factory);
 	void SetFactories(AbstractFactory* _factory, AbstractFactory* _factory2);
 	void UpdateGameLogic(float _elapsedTime);
@@ -20,7 +22,7 @@ public:
 	void ClearArrays();
 
 	void CheckGameState();
-	void RestartLevel();
+	void BeginLevel(bool _isLevelFinished);
 
 	void SetNumBalls(int _numballs);
 	//int GetNumBalls() const;
@@ -42,6 +44,8 @@ private:
 	std::vector<Entity*> m_bigBalls;
 	std::vector<Entity*> m_medBalls;
 	std::vector<Entity*> m_smallBalls;
+
+	std::vector<AbstractFactory*> m_factories;
 
     CGameLogic();
 	static CGameLogic* _instance;
