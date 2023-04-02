@@ -11,7 +11,7 @@ class RenderComponent : public Component
 
 public:
 	RenderComponent();
-	RenderComponent(GLuint& _gfx, vec2& _size, CSprite* _sprite);
+	RenderComponent(GLuint& _gfx, vec2& _size/*, CSprite* _sprite*/);
 
 	void SetSize(vec2& _size);
 	void SetGfx(GLuint& _gfx);

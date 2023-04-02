@@ -8,7 +8,7 @@ RenderComponent::RenderComponent()
 	SetSize(vec2(0,0));
 }
 
-RenderComponent::RenderComponent(GLuint& _gfx, vec2& _size, CSprite* _sprite)
+RenderComponent::RenderComponent(GLuint& _gfx, vec2& _size/*, CSprite* _sprite*/)
 {
 	gfx = _gfx;
 	pos = vec2(0, 0);
@@ -17,7 +17,7 @@ RenderComponent::RenderComponent(GLuint& _gfx, vec2& _size, CSprite* _sprite)
 	sprite->SetGfx(gfx);
 	sprite->SetPos(pos);
 	sprite->SetSize(size);
-	CRenderer::instance()->SetSprite(0, sprite);
+	//CRenderer::instance()->SetSprite(0, sprite);
 }
 
 void RenderComponent::SetSize(vec2& _size)
@@ -50,6 +50,7 @@ void RenderComponent::RecieveMessage(Message* msg)
 
 void RenderComponent::Slot()
 {
+	CORE_RenderCenteredSprite(GetPos(),size, gfx);
 }
 
 void RenderComponent::End()

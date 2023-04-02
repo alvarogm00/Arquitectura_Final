@@ -6,7 +6,7 @@
 #include "../../common/Renderer.h"
 
 Lvl2Factory::Lvl2Factory(int _numBalls, float _bigVel, float _medVel, float _smallVel, Entity::EntityType _starterType, 
-	GLuint& _texbigball, GLuint& _texmediumball, GLuint& _texsmallball)
+	GLuint& _texbigball, GLuint& _texmediumball, GLuint& _texsmallball, GLuint& _texPlayer, vec2 _playerSize)
 {
 	numBalls = _numBalls;
 	m_bigVel = _bigVel;
@@ -16,6 +16,8 @@ Lvl2Factory::Lvl2Factory(int _numBalls, float _bigVel, float _medVel, float _sma
 	m_texbigball = _texbigball;
 	m_texmediumball = _texmediumball;
 	m_texsmallball = _texsmallball;
+	m_texPlayer = _texPlayer;
+	m_playerSize = _playerSize;
 }
 
 void Lvl2Factory::CreateBalls()

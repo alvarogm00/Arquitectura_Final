@@ -1,6 +1,11 @@
 #include "RectColliderComponent.h"
 #include "../../common/GameLogic.h"
 
+RectColliderComponent::RectColliderComponent(vec2& _size)
+{
+	size = _size;
+}
+
 void RectColliderComponent::Slot()
 {
 }
@@ -20,7 +25,7 @@ bool RectColliderComponent::collides(const CollisionComponent& other) const
 	return other.collides(pos, size);
 }
 
-bool RectColliderComponent::collides(const vec2& circlePos, float circleRadius) const
+bool RectColliderComponent::collides(vec2& circlePos, float circleRadius) const
 {
 	return checkCircleRect(circlePos, circleRadius, pos, size);
 }

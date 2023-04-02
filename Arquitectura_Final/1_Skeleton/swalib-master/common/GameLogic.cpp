@@ -63,6 +63,11 @@ void CGameLogic::AddBall(Entity* _ball)
 		m_smallBalls.push_back(_ball);
 }
 
+void CGameLogic::AddPlayer(Entity* _player)
+{
+	m_entities.push_back(_player);
+}
+
 void CGameLogic::ActivateBalls(Entity::EntityType _type, vec2& _pos)
 {
 	if (_type == Entity::MEDIUM_BALL)

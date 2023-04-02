@@ -15,6 +15,9 @@ protected:
 	GLuint m_texmediumball;
 	GLuint m_texsmallball;
 	Entity::EntityType starterType;
+
+	GLuint m_texPlayer;
+	vec2 m_playerSize;
 	//std::vector<Entity*> m_entitites;
 	//std::vector<Entity*> m_initEntities;
 	//std::vector<Entity*> m_sedondaryEntities;

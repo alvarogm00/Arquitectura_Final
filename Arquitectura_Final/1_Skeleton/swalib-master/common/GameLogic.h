@@ -18,6 +18,7 @@ public:
 	void CloseGameLogic();
 
 	void AddBall(Entity* _ball);
+	void AddPlayer(Entity* _player);
 	void ActivateBalls(Entity::EntityType _type, vec2& _pos);
 	void ClearArrays();
 
