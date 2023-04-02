@@ -25,35 +25,27 @@ void Lvl1Factory::CreateBalls()
 	for (size_t i = 0; i < numBalls; i++)
 	{
 		Entity* newEntity = new Entity(starterType);
-		MovementComponent* movComponent = new MovementComponent(vec2(0, 0), vec2(0, 0));
-		CollisionComponent* colComponent = new CircleCollisionComponent(0.f);
-		RenderComponent* rendComponent = new RenderComponent();
+		MovementComponent* movComponent = new MovementComponent(vec2(0, 0), vec2(m_medVel, -m_medVel));
+		CollisionComponent* colComponent = new CircleCollisionComponent(8.f);
+		RenderComponent* rendComponent = new RenderComponent(m_texmediumball, vec2(8.0f * 2.0f, 8.0f * 2.0f));
 
-		movComponent->SetVelocity(vec2(m_medVel, -m_medVel));
-		static_cast<CircleCollisionComponent*>(colComponent)->SetRadius(16.f);
-		rendComponent->SetGfx(m_texmediumball);
-		rendComponent->SetSize(vec2(16.0f * 2.0f, 16.0f * 2.0f));
-
+		newEntity->SetType(Entity::MEDIUM_BALL);
 		newEntity->AddComponent(movComponent);
 		newEntity->AddComponent(colComponent);
 		newEntity->AddComponent(rendComponent);
 
 		CGameLogic::instance()->AddBall(newEntity);
+		CRenderer::instance()->SetRenderComponent(rendComponent);
 	}
 
 	for (size_t i = 0; i < numBalls * 2; i++)
 	{
 		Entity* newEntity = new Entity();
-		MovementComponent* movComponent = new MovementComponent(vec2(0, 0), vec2(0, 0));
-		CollisionComponent* colComponent = new CircleCollisionComponent(0.f);
-		RenderComponent* rendComponent = new RenderComponent();
+		MovementComponent* movComponent = new MovementComponent(vec2(0, 0), vec2(m_smallVel, -m_smallVel));
+		CollisionComponent* colComponent = new CircleCollisionComponent(4.f);
+		RenderComponent* rendComponent = new RenderComponent(m_texsmallball, vec2(4.f * 2.0f, 4.f * 2.0f));
 
 		newEntity->SetType(Entity::SMALL_BALL);
-		movComponent->SetVelocity(vec2(m_smallVel, -m_smallVel));
-		static_cast<CircleCollisionComponent*>(colComponent)->SetRadius(16.f);
-		rendComponent->SetGfx(m_texsmallball);
-		rendComponent->SetSize(vec2(16.0f * 2.0f, 16.0f * 2.0f));
-
 		newEntity->AddComponent(movComponent);
 		newEntity->AddComponent(colComponent);
 		newEntity->AddComponent(rendComponent);

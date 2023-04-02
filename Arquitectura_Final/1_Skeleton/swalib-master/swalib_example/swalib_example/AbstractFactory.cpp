@@ -102,7 +102,7 @@ void AbstractFactory::CreatePlayer()
 		player->AddComponent(collider);
 		player->AddComponent(render);
     player->AddComponent(weapon);
-		CGameLogic::instance()->AddPlayer(player);
+		CGameLogic::instance()->AddEntity(player);
 }
 
 int AbstractFactory::GetNumBalls()

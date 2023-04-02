@@ -38,6 +38,7 @@ void RenderComponent::SetPos(vec2& _pos)
 
 vec2 RenderComponent::GetPos()
 {
+	pos = *m_Owner->GetPosition();
 	return pos;
 }
 
@@ -50,7 +51,8 @@ void RenderComponent::RecieveMessage(Message* msg)
 
 void RenderComponent::Slot()
 {
-	CORE_RenderCenteredSprite(GetPos(),size, gfx);
+	if(m_Owner->GetIsActive())
+		CORE_RenderCenteredSprite(GetPos(),size, gfx);
 }
 
 void RenderComponent::End()

@@ -1,76 +1,29 @@
-﻿  core.cpp
-  CSprite.cpp
-E:\Apuntes\Master\Ingenieria\Arquitectura_Final\Arquitectura_Final\1_Skeleton\swalib-master\common\CSprite.cpp(2,10): warning C4067: símbolos (token) inesperados después de la directiva del preprocesador; se esperaba una nueva línea
-  Entity.cpp
-E:\Apuntes\Master\Ingenieria\Arquitectura_Final\Arquitectura_Final\1_Skeleton\swalib-master\common\Entity.h(38,32): error C2535: 'void Entity::SetType(Entity::EntityType)': función miembro ya definida o declarada
-E:\Apuntes\Master\Ingenieria\Arquitectura_Final\Arquitectura_Final\1_Skeleton\swalib-master\common\Entity.h(27): message : vea la declaración de 'Entity::SetType'
-E:\Apuntes\Master\Ingenieria\Arquitectura_Final\Arquitectura_Final\1_Skeleton\swalib-master\common\Entity.cpp(2,10): fatal error C1083: No se puede abrir el archivo incluir: 'Component.h': No such file or directory
-  example.cpp
+﻿  Entity.cpp
 E:\Apuntes\Master\Ingenieria\Arquitectura_Final\Arquitectura_Final\1_Skeleton\swalib-master\common\SBall.h(6,10): warning C4067: símbolos (token) inesperados después de la directiva del preprocesador; se esperaba una nueva línea
-E:\Apuntes\Master\Ingenieria\Arquitectura_Final\Arquitectura_Final\1_Skeleton\swalib-master\common\Entity.h(38,32): error C2535: 'void Entity::SetType(Entity::EntityType)': función miembro ya definida o declarada
-E:\Apuntes\Master\Ingenieria\Arquitectura_Final\Arquitectura_Final\1_Skeleton\swalib-master\common\Entity.h(27): message : vea la declaración de 'Entity::SetType'
-E:\Apuntes\Master\Ingenieria\Arquitectura_Final\Arquitectura_Final\1_Skeleton\swalib-master\common\example.cpp(18,53): error C2660: 'CGameLogic::InitGameLogic': la función no acepta 1 argumentos
-E:\Apuntes\Master\Ingenieria\Arquitectura_Final\Arquitectura_Final\1_Skeleton\swalib-master\common\GameLogic.h(11,7): message : vea la declaración de 'CGameLogic::InitGameLogic'
-  font.cpp
   GameLogic.cpp
 E:\Apuntes\Master\Ingenieria\Arquitectura_Final\Arquitectura_Final\1_Skeleton\swalib-master\common\SBall.h(6,10): warning C4067: símbolos (token) inesperados después de la directiva del preprocesador; se esperaba una nueva línea
-E:\Apuntes\Master\Ingenieria\Arquitectura_Final\Arquitectura_Final\1_Skeleton\swalib-master\common\Entity.h(38,32): error C2535: 'void Entity::SetType(Entity::EntityType)': función miembro ya definida o declarada
-E:\Apuntes\Master\Ingenieria\Arquitectura_Final\Arquitectura_Final\1_Skeleton\swalib-master\common\Entity.h(27): message : vea la declaración de 'Entity::SetType'
-E:\Apuntes\Master\Ingenieria\Arquitectura_Final\Arquitectura_Final\1_Skeleton\swalib-master\common\GameLogic.cpp(23,21): warning C4018: '<': no coinciden signed/unsigned
-E:\Apuntes\Master\Ingenieria\Arquitectura_Final\Arquitectura_Final\1_Skeleton\swalib-master\common\GameLogic.cpp(43,20): warning C4018: '<': no coinciden signed/unsigned
-  lodepng.cpp
+E:\Apuntes\Master\Ingenieria\Arquitectura_Final\Arquitectura_Final\1_Skeleton\swalib-master\common\GameLogic.cpp(39,20): warning C4018: '<': no coinciden signed/unsigned
   Renderer.cpp
 E:\Apuntes\Master\Ingenieria\Arquitectura_Final\Arquitectura_Final\1_Skeleton\swalib-master\common\SBall.h(6,10): warning C4067: símbolos (token) inesperados después de la directiva del preprocesador; se esperaba una nueva línea
-E:\Apuntes\Master\Ingenieria\Arquitectura_Final\Arquitectura_Final\1_Skeleton\swalib-master\common\Entity.h(38,32): error C2535: 'void Entity::SetType(Entity::EntityType)': función miembro ya definida o declarada
-E:\Apuntes\Master\Ingenieria\Arquitectura_Final\Arquitectura_Final\1_Skeleton\swalib-master\common\Entity.h(27): message : vea la declaración de 'Entity::SetType'
   SBall.cpp
 E:\Apuntes\Master\Ingenieria\Arquitectura_Final\Arquitectura_Final\1_Skeleton\swalib-master\common\SBall.h(6,10): warning C4067: símbolos (token) inesperados después de la directiva del preprocesador; se esperaba una nueva línea
-E:\Apuntes\Master\Ingenieria\Arquitectura_Final\Arquitectura_Final\1_Skeleton\swalib-master\common\Entity.h(38,32): error C2535: 'void Entity::SetType(Entity::EntityType)': función miembro ya definida o declarada
-E:\Apuntes\Master\Ingenieria\Arquitectura_Final\Arquitectura_Final\1_Skeleton\swalib-master\common\Entity.h(27): message : vea la declaración de 'Entity::SetType'
-  stdafx.cpp
-  sys_win.cpp
-  TimeManager.cpp
-E:\Apuntes\Master\Ingenieria\Arquitectura_Final\Arquitectura_Final\1_Skeleton\swalib-master\common\TimeManager.cpp(9,68): warning C4244: 'return': conversión de 'double' a 'float'; posible pérdida de datos
-E:\Apuntes\Master\Ingenieria\Arquitectura_Final\Arquitectura_Final\1_Skeleton\swalib-master\common\TimeManager.cpp(59,52): warning C4305: '=': truncamiento de 'double' a 'float'
-  AbstractFactory.cpp
-E:\Apuntes\Master\Ingenieria\Arquitectura_Final\Arquitectura_Final\1_Skeleton\swalib-master\common\Entity.h(38,32): error C2535: 'void Entity::SetType(Entity::EntityType)': función miembro ya definida o declarada
-E:\Apuntes\Master\Ingenieria\Arquitectura_Final\Arquitectura_Final\1_Skeleton\swalib-master\common\Entity.h(27): message : vea la declaración de 'Entity::SetType'
-  Builder.cpp
-E:\Apuntes\Master\Ingenieria\Arquitectura_Final\Arquitectura_Final\1_Skeleton\swalib-master\common\Entity.h(38,32): error C2535: 'void Entity::SetType(Entity::EntityType)': función miembro ya definida o declarada
-E:\Apuntes\Master\Ingenieria\Arquitectura_Final\Arquitectura_Final\1_Skeleton\swalib-master\common\Entity.h(27): message : vea la declaración de 'Entity::SetType'
-  CircleCollisionComponent.cpp
-E:\Apuntes\Master\Ingenieria\Arquitectura_Final\Arquitectura_Final\1_Skeleton\swalib-master\common\Entity.h(38,32): error C2535: 'void Entity::SetType(Entity::EntityType)': función miembro ya definida o declarada
-E:\Apuntes\Master\Ingenieria\Arquitectura_Final\Arquitectura_Final\1_Skeleton\swalib-master\common\Entity.h(27): message : vea la declaración de 'Entity::SetType'
+  example.cpp
 E:\Apuntes\Master\Ingenieria\Arquitectura_Final\Arquitectura_Final\1_Skeleton\swalib-master\common\SBall.h(6,10): warning C4067: símbolos (token) inesperados después de la directiva del preprocesador; se esperaba una nueva línea
-E:\Apuntes\Master\Ingenieria\Arquitectura_Final\Arquitectura_Final\1_Skeleton\swalib-master\swalib_example\swalib_example\CircleCollisionComponent.cpp(67,121): error C2660: 'CGameLogic::CreateBalls': la función no acepta 2 argumentos
-E:\Apuntes\Master\Ingenieria\Arquitectura_Final\Arquitectura_Final\1_Skeleton\swalib-master\common\GameLogic.h(15,7): message : vea la declaración de 'CGameLogic::CreateBalls'
-E:\Apuntes\Master\Ingenieria\Arquitectura_Final\Arquitectura_Final\1_Skeleton\swalib-master\swalib_example\swalib_example\CircleCollisionComponent.cpp(72,120): error C2660: 'CGameLogic::CreateBalls': la función no acepta 2 argumentos
-E:\Apuntes\Master\Ingenieria\Arquitectura_Final\Arquitectura_Final\1_Skeleton\swalib-master\common\GameLogic.h(15,7): message : vea la declaración de 'CGameLogic::CreateBalls'
-  CollisionComponent.cpp
-E:\Apuntes\Master\Ingenieria\Arquitectura_Final\Arquitectura_Final\1_Skeleton\swalib-master\common\Entity.h(38,32): error C2535: 'void Entity::SetType(Entity::EntityType)': función miembro ya definida o declarada
-E:\Apuntes\Master\Ingenieria\Arquitectura_Final\Arquitectura_Final\1_Skeleton\swalib-master\common\Entity.h(27): message : vea la declaración de 'Entity::SetType'
-  Component.cpp
-E:\Apuntes\Master\Ingenieria\Arquitectura_Final\Arquitectura_Final\1_Skeleton\swalib-master\common\Entity.h(38,32): error C2535: 'void Entity::SetType(Entity::EntityType)': función miembro ya definida o declarada
-E:\Apuntes\Master\Ingenieria\Arquitectura_Final\Arquitectura_Final\1_Skeleton\swalib-master\common\Entity.h(27): message : vea la declaración de 'Entity::SetType'
-  Level.cpp
+  AbstractFactory.cpp
+E:\Apuntes\Master\Ingenieria\Arquitectura_Final\Arquitectura_Final\1_Skeleton\swalib-master\common\SBall.h(6,10): warning C4067: símbolos (token) inesperados después de la directiva del preprocesador; se esperaba una nueva línea
+E:\Apuntes\Master\Ingenieria\Arquitectura_Final\Arquitectura_Final\1_Skeleton\swalib-master\swalib_example\swalib_example\AbstractFactory.cpp(99,50): error C2512: 'WeaponComponent::WeaponComponent': no hay disponible un constructor predeterminado adecuado
+  CircleCollisionComponent.cpp
+E:\Apuntes\Master\Ingenieria\Arquitectura_Final\Arquitectura_Final\1_Skeleton\swalib-master\common\SBall.h(6,10): warning C4067: símbolos (token) inesperados después de la directiva del preprocesador; se esperaba una nueva línea
   Lvl1Factory.cpp
-E:\Apuntes\Master\Ingenieria\Arquitectura_Final\Arquitectura_Final\1_Skeleton\swalib-master\common\Entity.h(38,32): error C2535: 'void Entity::SetType(Entity::EntityType)': función miembro ya definida o declarada
-E:\Apuntes\Master\Ingenieria\Arquitectura_Final\Arquitectura_Final\1_Skeleton\swalib-master\common\Entity.h(27): message : vea la declaración de 'Entity::SetType'
-  Message.cpp
-  Generando código...
-  Compilando...
+E:\Apuntes\Master\Ingenieria\Arquitectura_Final\Arquitectura_Final\1_Skeleton\swalib-master\common\SBall.h(6,10): warning C4067: símbolos (token) inesperados después de la directiva del preprocesador; se esperaba una nueva línea
+  Lvl2Factory.cpp
+E:\Apuntes\Master\Ingenieria\Arquitectura_Final\Arquitectura_Final\1_Skeleton\swalib-master\common\SBall.h(6,10): warning C4067: símbolos (token) inesperados después de la directiva del preprocesador; se esperaba una nueva línea
   MovementComponent.cpp
-E:\Apuntes\Master\Ingenieria\Arquitectura_Final\Arquitectura_Final\1_Skeleton\swalib-master\common\Entity.h(38,32): error C2535: 'void Entity::SetType(Entity::EntityType)': función miembro ya definida o declarada
-E:\Apuntes\Master\Ingenieria\Arquitectura_Final\Arquitectura_Final\1_Skeleton\swalib-master\common\Entity.h(27): message : vea la declaración de 'Entity::SetType'
+E:\Apuntes\Master\Ingenieria\Arquitectura_Final\Arquitectura_Final\1_Skeleton\swalib-master\swalib_example\swalib_example\MovementComponent.cpp(63,90): error C2059: error de sintaxis: ')'
   RectColliderComponent.cpp
-E:\Apuntes\Master\Ingenieria\Arquitectura_Final\Arquitectura_Final\1_Skeleton\swalib-master\common\Entity.h(38,32): error C2535: 'void Entity::SetType(Entity::EntityType)': función miembro ya definida o declarada
-E:\Apuntes\Master\Ingenieria\Arquitectura_Final\Arquitectura_Final\1_Skeleton\swalib-master\common\Entity.h(27): message : vea la declaración de 'Entity::SetType'
-E:\Apuntes\Master\Ingenieria\Arquitectura_Final\Arquitectura_Final\1_Skeleton\swalib-master\swalib_example\swalib_example\RectColliderComponent.h(12,15): error C3668: 'RectColliderComponent::collides': el método con el especificador de invalidación 'override' no invalidó ningún método de clase base
+E:\Apuntes\Master\Ingenieria\Arquitectura_Final\Arquitectura_Final\1_Skeleton\swalib-master\common\SBall.h(6,10): warning C4067: símbolos (token) inesperados después de la directiva del preprocesador; se esperaba una nueva línea
   RenderComponent.cpp
-E:\Apuntes\Master\Ingenieria\Arquitectura_Final\Arquitectura_Final\1_Skeleton\swalib-master\common\Entity.h(38,32): error C2535: 'void Entity::SetType(Entity::EntityType)': función miembro ya definida o declarada
-E:\Apuntes\Master\Ingenieria\Arquitectura_Final\Arquitectura_Final\1_Skeleton\swalib-master\common\Entity.h(27): message : vea la declaración de 'Entity::SetType'
 E:\Apuntes\Master\Ingenieria\Arquitectura_Final\Arquitectura_Final\1_Skeleton\swalib-master\common\SBall.h(6,10): warning C4067: símbolos (token) inesperados después de la directiva del preprocesador; se esperaba una nueva línea
   WeaponComponent.cpp
-E:\Apuntes\Master\Ingenieria\Arquitectura_Final\Arquitectura_Final\1_Skeleton\swalib-master\common\Entity.h(38,32): error C2535: 'void Entity::SetType(Entity::EntityType)': función miembro ya definida o declarada
-E:\Apuntes\Master\Ingenieria\Arquitectura_Final\Arquitectura_Final\1_Skeleton\swalib-master\common\Entity.h(27): message : vea la declaración de 'Entity::SetType'
+E:\Apuntes\Master\Ingenieria\Arquitectura_Final\Arquitectura_Final\1_Skeleton\swalib-master\common\SBall.h(6,10): warning C4067: símbolos (token) inesperados después de la directiva del preprocesador; se esperaba una nueva línea
   Generando código...

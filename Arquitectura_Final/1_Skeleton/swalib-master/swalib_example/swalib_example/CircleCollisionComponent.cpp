@@ -33,6 +33,7 @@ void CircleCollisionComponent::Slot()
 
 	if (!collision) {
 		pos = newPos;
+		m_Owner->SetPosition(pos);
 	}
 	else {
 		// Rebound!

@@ -8,6 +8,10 @@ RectColliderComponent::RectColliderComponent(vec2& _size)
 
 void RectColliderComponent::Slot()
 {
+	if ((newPos.x < SCR_WIDTH) || (newPos.x > 0)) {
+		pos = newPos;
+		m_Owner->SetPosition(pos);
+	}
 }
 
 void RectColliderComponent::SetSize(vec2& _size)

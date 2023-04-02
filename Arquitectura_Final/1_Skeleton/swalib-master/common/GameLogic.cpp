@@ -36,7 +36,7 @@ void CGameLogic::SetFactories(AbstractFactory* _factory, AbstractFactory* _facto
 
 void CGameLogic::UpdateGameLogic(float _fixedTick)
 {
-	for (int i = 0; i < NUM_BALLS; i++) {
+	for (int i = 0; i < m_entities.size(); i++) {
 		if (m_entities[i]->GetIsActive())
 		{
 			m_entities[i]->SetElapsedTime(_fixedTick);
@@ -63,7 +63,7 @@ void CGameLogic::AddBall(Entity* _ball)
 		m_smallBalls.push_back(_ball);
 }
 
-void CGameLogic::AddPlayer(Entity* _player)
+void CGameLogic::AddEntity(Entity* _player)
 {
 	m_entities.push_back(_player);
 }

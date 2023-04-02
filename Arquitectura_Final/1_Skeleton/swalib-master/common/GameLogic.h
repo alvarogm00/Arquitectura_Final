@@ -18,7 +18,7 @@ public:
 	void CloseGameLogic();
 
 	void AddBall(Entity* _ball);
-	void AddPlayer(Entity* _player);
+	void AddEntity(Entity* _player);
 	void ActivateBalls(Entity::EntityType _type, vec2& _pos);
 	void ClearArrays();
 
@@ -33,7 +33,7 @@ public:
 private:
 	int m_lifes;
 	int m_level;
-	static unsigned int NUM_BALLS;	// Max. num balls.
+	unsigned int NUM_BALLS = 1;	// Max. num balls.
 	//const float MAX_BALL_SPEED = 80;
 
 	AbstractFactory* m_absFactory1;

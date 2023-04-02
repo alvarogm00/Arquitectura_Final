@@ -3,6 +3,7 @@
 class MovementComponent : public Component
 {
 	vec2 vel;	// Velocity.
+	vec2 currentVel;	// Velocity.
 	vec2 pos;
 	float elapsedTime;
 	NewPosMsg* newPosMsg;
