@@ -37,11 +37,9 @@ void CircleCollisionComponent::Slot()
 
 	// Rebound on margins.
 	if ((newPos.x > SCR_WIDTH) || (newPos.x < 0)) {
-		//vel *= -1.0;
 		m_Owner->ReceiveMessage(horLimitMsg);
 	}
 	else if ((newPos.y > SCR_HEIGHT) || (newPos.y < 0)) {
-		//vel *= -1.0;
 		m_Owner->ReceiveMessage(vertLimitMsg);
 	}
 	else if (!collision) {

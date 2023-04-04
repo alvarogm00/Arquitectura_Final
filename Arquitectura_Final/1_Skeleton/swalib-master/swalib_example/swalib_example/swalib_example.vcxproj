@@ -133,11 +133,9 @@
     <ClCompile Include="..\..\common\sys_win.cpp" />
     <ClCompile Include="..\..\common\TimeManager.cpp" />
     <ClCompile Include="AbstractFactory.cpp" />
-    <ClCompile Include="Builder.cpp" />
     <ClCompile Include="CircleCollisionComponent.cpp" />
     <ClCompile Include="CollisionComponent.cpp" />
     <ClCompile Include="Component.cpp" />
-    <ClCompile Include="Level.cpp" />
     <ClCompile Include="Lvl1Factory.cpp" />
     <ClCompile Include="Lvl2Factory.cpp" />
     <ClCompile Include="Message.cpp" />
@@ -160,11 +158,9 @@
     <ClInclude Include="..\..\common\TimeManager.h" />
     <ClInclude Include="..\..\common\vector2d.h" />
     <ClInclude Include="AbstractFactory.h" />
-    <ClInclude Include="Builder.h" />
     <ClInclude Include="CircleCollisionComponent.h" />
     <ClInclude Include="CollisionComponent.h" />
     <ClInclude Include="Component.h" />
-    <ClInclude Include="Level.h" />
     <ClInclude Include="Lvl1Factory.h" />
     <ClInclude Include="Lvl2Factory.h" />
     <ClInclude Include="Message.h" />

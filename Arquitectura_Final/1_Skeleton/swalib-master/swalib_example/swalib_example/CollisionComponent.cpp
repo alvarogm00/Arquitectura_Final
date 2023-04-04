@@ -39,7 +39,7 @@ float CollisionComponent::Clamp(float _value, float _minvalue, float _maxValue)
 
 bool CollisionComponent::checkCircleCircle(const vec2& pos1, float radius1, const vec2& pos2, float radius2)
 {
-	float distance = vlen2(pos1 - pos2);
+	float distance = vlen(pos1 - pos2);
 	float radiusSum = radius1 + radius2;
 	if (distance < radiusSum)
 		return true;
@@ -53,7 +53,7 @@ bool CollisionComponent::checkCircleRect(const vec2& circlePos, float circleRadi
 	float closestY = CollisionComponent::Clamp(circlePos.y, rectPos.y, (rectPos.y + rectSize.y));
 
 	vec2 closestPos(closestX, closestY);
-	float shortestDistance = vlen2(closestPos - circlePos);
+	float shortestDistance = vlen(closestPos - circlePos);
 	if (shortestDistance < circleRadius)
 	{
 		return true;
