@@ -24,14 +24,16 @@ CGameLogic::CGameLogic() {}
 void CGameLogic::InitGameLogic(AbstractFactory* _factory)
 {
 	// Init game state.
-	_factory->CreateBalls();
 	_factory->CreatePlayer();
+	_factory->CreateBalls();
+
+	m_maxScore = m_smallBalls.size();
 }
 
 void CGameLogic::SetFactories(AbstractFactory* _factory, AbstractFactory* _factory2)
 {
-	m_absFactory1 = _factory;
-	m_absFactory2 = _factory2;
+	m_factories[0] = _factory;
+	m_factories[1] = _factory2;
 }
 
 void CGameLogic::UpdateGameLogic(float _fixedTick)
@@ -47,7 +49,8 @@ void CGameLogic::UpdateGameLogic(float _fixedTick)
 
 void CGameLogic::CloseGameLogic()
 {
-	m_entities.~vector();
+	ClearArrays();
+	m_factories.clear();
 	//delete _instance;
 }
 
@@ -55,52 +58,59 @@ void CGameLogic::AddBall(Entity* _ball)
 {
 	m_entities.push_back(_ball);
 
-	if (_ball->BIG_BALL)
+	if (_ball->GetType() == Entity::BIG_BALL)
 		m_bigBalls.push_back(_ball);
-	else if (_ball->MEDIUM_BALL)
+	else if (_ball->GetType() == Entity::MEDIUM_BALL)
 		m_medBalls.push_back(_ball);
-	else if (_ball->SMALL_BALL)
+	else if (_ball->GetType() == Entity::SMALL_BALL)
 		m_smallBalls.push_back(_ball);
 }
 
 void CGameLogic::AddEntity(Entity* _player)
 {
 	m_entities.push_back(_player);
+	m_playerEntities.push_back(_player);
 }
 
 void CGameLogic::ActivateBalls(Entity::EntityType _type, vec2& _pos)
 {
 	if (_type == Entity::MEDIUM_BALL)
 	{
-		m_medBalls.back()->SetIsActive(true);
-		m_medBalls.pop_back();
+		if (!m_medBalls.empty())
+		{
+			m_medBalls.back()->SetPosition(_pos);
+			m_medBalls.back()->SetIsActive(true);
+			m_medBalls.pop_back();
 
-		vec2 newVel = m_medBalls.back()->FindComponent<MovementComponent>()->GetVelocity();
-		newVel *= vec2(-1.0, 1.0);
-		m_medBalls.back()->FindComponent<MovementComponent>()->SetVelocity(newVel);
-		m_medBalls.back()->SetIsActive(true);
-		m_medBalls.pop_back();
+			vec2 newVel = m_medBalls.back()->FindComponent<MovementComponent>()->GetVelocity();
+			newVel *= vec2(-1.0, 1.0);
+			m_medBalls.back()->FindComponent<MovementComponent>()->SetVelocity(newVel);
+			m_medBalls.back()->SetPosition(_pos);
+			m_medBalls.back()->SetIsActive(true);
+			m_medBalls.pop_back();
+		}
 	}
 	else if (_type == Entity::SMALL_BALL)
 	{
-		m_smallBalls.back()->SetIsActive(true);
-		m_smallBalls.pop_back();
+		if (!m_smallBalls.empty())
+		{
+			m_smallBalls.back()->SetPosition(_pos);
+			m_smallBalls.back()->SetIsActive(true);
+			m_smallBalls.pop_back();
 
-		vec2 newVel = m_smallBalls.back()->FindComponent<MovementComponent>()->GetVelocity();
-		newVel *= vec2(-1.0, 1.0);
-		m_smallBalls.back()->FindComponent<MovementComponent>()->SetVelocity(newVel);
-		m_smallBalls.back()->SetIsActive(true);
-		m_smallBalls.pop_back();
+			vec2 newVel = m_smallBalls.back()->FindComponent<MovementComponent>()->GetVelocity();
+			newVel *= vec2(-1.0, 1.0);
+			m_smallBalls.back()->FindComponent<MovementComponent>()->SetVelocity(newVel);
+			m_smallBalls.back()->SetPosition(_pos);
+			m_smallBalls.back()->SetIsActive(true);
+			m_smallBalls.pop_back();
+
+		}
 	}
 }
 
 void CGameLogic::ClearArrays()
 {
-	for (size_t i = 0; i < m_entities.size(); i++)
-	{
-		delete m_entities[i];
-	};
-
 	m_entities.clear();
 	m_bigBalls.clear();
 	m_medBalls.clear();
@@ -109,15 +119,9 @@ void CGameLogic::ClearArrays()
 
 void CGameLogic::CheckGameState()
 {
-	if (m_smallBalls.empty())
-	{
-		if (m_level == 0)
-		{
-			ClearArrays();
-			InitGameLogic(m_absFactory2);
-		}
-		//siguiente nivel o acabar el juego
-	}
+	++m_currentScore;
+	if (m_currentScore == m_maxScore)
+		BeginLevel(true);
 }
 
 void CGameLogic::BeginLevel(bool _isLevelFinished)
@@ -126,25 +130,25 @@ void CGameLogic::BeginLevel(bool _isLevelFinished)
 		++m_level;
 
 	ClearArrays();
-	InitGameLogic(m_factories[m_level]);
+	CRenderer::instance()->Clear();
+
+	if (m_factories.size() > m_level)
+		InitGameLogic(m_factories[m_level]);
+	else
+		m_isShutDown = true;
 }
 
-void CGameLogic::SetNumBalls(int _numballs)
+bool CGameLogic::GetIsShutDown()
 {
-	NUM_BALLS = _numballs;
-}
-//
-//int CGameLogic::GetNumBalls() const
-//{
-//	return NUM_BALLS;
-//}
-
-std::vector<Entity*> CGameLogic::GetEntitiesArray()
-{
-	return m_entities;
+	return m_isShutDown;
 }
 
 std::vector<Entity*> CGameLogic::GetPlayerEntitiesArray()
 {
 	return m_playerEntities;
+}
+
+std::vector<Entity*> CGameLogic::GetEntitiesArray()
+{
+	return m_entities;
 }

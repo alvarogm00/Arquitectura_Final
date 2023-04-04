@@ -18,6 +18,9 @@ protected:
 
 	GLuint m_texPlayer;
 	vec2 m_playerSize;
+
+	GLuint m_texWeapon;
+	vec2 m_weaponVel;
 	//std::vector<Entity*> m_entitites;
 	//std::vector<Entity*> m_initEntities;
 	//std::vector<Entity*> m_sedondaryEntities;

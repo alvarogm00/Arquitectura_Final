@@ -3,8 +3,10 @@
 class Lvl2Factory :
     public AbstractFactory
 {
-    Lvl2Factory(int _numBalls, float m_bigVel, float m_medVel, float m_smallVel, Entity::EntityType _starterType, 
-        GLuint& _texbigball, GLuint& _texmediumball, GLuint& _texsmallball, GLuint& _texPlayer, vec2 _playerSize);
-    void CreateBalls() override;
+public:
+  Lvl2Factory(int _numBalls, float _bigVel, float _medVel, float _smallVel, Entity::EntityType _starterType,
+    GLuint& _texbigball, GLuint& _texmediumball, GLuint& _texsmallball, GLuint& _texPlayer, vec2 _playerSize, GLuint& _texWeapon, vec2 _weaponVel);
+  
+  void CreateBalls() override;
 };
 

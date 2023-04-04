@@ -6,6 +6,7 @@ class Component
 {
 protected: 
 	Entity* m_Owner;
+	vec2 m_position;
 
 public: 
 	Component();
@@ -15,5 +16,7 @@ public:
 
 	virtual void Slot() = 0;
 	virtual void RecieveMessage(Message* _msg) = 0;
+
+	void SetPosition(vec2 _position);
 };
 

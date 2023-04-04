@@ -12,9 +12,10 @@ public:
 	static CRenderer* instance();
 
 	void InitRender();
-	void Draw(GLuint* _texbkg, float _fpsCounter, float _totalTime, float _logicTime /*CSprite* _sprites[], int _size*/);
-	void End(GLuint* _texsmallball, GLuint* _texbkg);
+	void Draw(GLuint* _texbkg);
+	void End(GLuint* _texbkg);
 	void SetRenderComponent(RenderComponent* _renderComponent);
+	void Clear();
 
 private:
 	CRenderer();

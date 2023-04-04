@@ -25,19 +25,16 @@ public:
 	void CheckGameState();
 	void BeginLevel(bool _isLevelFinished);
 
-	void SetNumBalls(int _numballs);
-	//int GetNumBalls() const;
-	std::vector<Entity*> GetEntitiesArray();
+	bool GetIsShutDown();
+
 	std::vector<Entity*> GetPlayerEntitiesArray();
+	std::vector<Entity*> GetEntitiesArray();
 
 private:
-	int m_lifes;
-	int m_level;
-	unsigned int NUM_BALLS = 1;	// Max. num balls.
-	//const float MAX_BALL_SPEED = 80;
-
-	AbstractFactory* m_absFactory1;
-	AbstractFactory* m_absFactory2;
+	int m_maxScore = 0;
+	int m_currentScore = 0;
+	int m_level = 0;
+	bool m_isShutDown = false;
 	vec2 m_bigVel, m_medVel, m_smallVel;
 
 	std::vector<Entity*> m_entities;

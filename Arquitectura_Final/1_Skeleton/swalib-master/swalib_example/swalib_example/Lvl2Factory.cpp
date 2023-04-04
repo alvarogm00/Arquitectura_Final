@@ -5,8 +5,8 @@
 #include "../../common/GameLogic.h"
 #include "../../common/Renderer.h"
 
-Lvl2Factory::Lvl2Factory(int _numBalls, float _bigVel, float _medVel, float _smallVel, Entity::EntityType _starterType, 
-	GLuint& _texbigball, GLuint& _texmediumball, GLuint& _texsmallball, GLuint& _texPlayer, vec2 _playerSize)
+Lvl2Factory::Lvl2Factory(int _numBalls, float _bigVel, float _medVel, float _smallVel, Entity::EntityType _starterType,
+	GLuint& _texbigball, GLuint& _texmediumball, GLuint& _texsmallball, GLuint& _texPlayer, vec2 _playerSize, GLuint& _texWeapon, vec2 _weaponVel)
 {
 	numBalls = _numBalls;
 	m_bigVel = _bigVel;
@@ -18,25 +18,30 @@ Lvl2Factory::Lvl2Factory(int _numBalls, float _bigVel, float _medVel, float _sma
 	m_texsmallball = _texsmallball;
 	m_texPlayer = _texPlayer;
 	m_playerSize = _playerSize;
+	m_texWeapon = _texWeapon;
+	m_weaponVel = _weaponVel;
 }
 
 void Lvl2Factory::CreateBalls()
 {
+	vec2 position(10.f, SCR_HEIGHT / 3);
+
 	for (size_t i = 0; i < numBalls; i++)
 	{
+		position.x += 120.f;
+
 		Entity* newEntity = new Entity(starterType);
-		MovementComponent* movComponent = new MovementComponent(vec2(0, 0), vec2(0, 0));
-		CollisionComponent* colComponent = new CircleCollisionComponent(0.f);
-		RenderComponent* rendComponent = new RenderComponent();
+		newEntity->SetSize(vec2(64.f, 64.f));
+		MovementComponent* movComponent = new MovementComponent(vec2(0, 0), vec2(m_bigVel, -m_bigVel));
+		CollisionComponent* colComponent = new CircleCollisionComponent(newEntity->GetSize()->x / 2);
+		RenderComponent* rendComponent = new RenderComponent(m_texbigball, *newEntity->GetSize());
 
-		movComponent->SetVelocity(vec2(m_bigVel, -m_bigVel));
-		static_cast<CircleCollisionComponent*>(colComponent)->SetRadius(16.f);
-		rendComponent->SetGfx(m_texbigball);
-		rendComponent->SetSize(vec2(16.0f * 2.0f, 16.0f * 2.0f));
-
+		movComponent->SetMaxHeight((SCR_HEIGHT / 3));
 		newEntity->AddComponent(movComponent);
 		newEntity->AddComponent(colComponent);
 		newEntity->AddComponent(rendComponent);
+		newEntity->SetPosition(position);
+		newEntity->SetIsActive(true);
 
 		CGameLogic::instance()->AddBall(newEntity);
 		CRenderer::instance()->SetRenderComponent(rendComponent);
@@ -45,19 +50,18 @@ void Lvl2Factory::CreateBalls()
 	for (size_t i = 0; i < numBalls * 2; i++)
 	{
 		Entity* newEntity = new Entity();
-		MovementComponent* movComponent = new MovementComponent(vec2(0, 0), vec2(0, 0));
-		CollisionComponent* colComponent = new CircleCollisionComponent(0.f);
-		RenderComponent* rendComponent = new RenderComponent();
+		newEntity->SetSize(vec2(32.f, 32.f));
+		MovementComponent* movComponent = new MovementComponent(vec2(0, 0), vec2(m_medVel, -m_medVel));
+		CollisionComponent* colComponent = new CircleCollisionComponent(newEntity->GetSize()->x / 2);
+		RenderComponent* rendComponent = new RenderComponent(m_texmediumball, *newEntity->GetSize());
+
+		movComponent->SetMaxHeight(SCR_HEIGHT / 2);
 
 		newEntity->SetType(Entity::MEDIUM_BALL);
-		movComponent->SetVelocity(vec2(m_medVel, -m_medVel));
-		static_cast<CircleCollisionComponent*>(colComponent)->SetRadius(16.f);
-		rendComponent->SetGfx(m_texmediumball);
-		rendComponent->SetSize(vec2(16.0f * 2.0f, 16.0f * 2.0f));
-
 		newEntity->AddComponent(movComponent);
 		newEntity->AddComponent(colComponent);
 		newEntity->AddComponent(rendComponent);
+		newEntity->SetPosition(position);
 		newEntity->SetIsActive(false);
 
 		CGameLogic::instance()->AddBall(newEntity);
@@ -67,17 +71,20 @@ void Lvl2Factory::CreateBalls()
 	for (size_t i = 0; i < numBalls * 4; i++)
 	{
 		Entity* newEntity = new Entity(Entity::SMALL_BALL);
+		newEntity->SetSize(vec2(16.f, 16.f));
 		MovementComponent* movComponent = new MovementComponent(vec2(0, 0), vec2(m_smallVel, -m_smallVel));
-		CollisionComponent* colComponent = new CircleCollisionComponent(16.f);
-		//RenderComponent* rendComponent = new RenderComponent(m_texsmallball, vec2(16.0f * 2.0f, 16.0f * 2.0f), nullptr);
+		CollisionComponent* colComponent = new CircleCollisionComponent(newEntity->GetSize()->x / 2);
+		RenderComponent* rendComponent = new RenderComponent(m_texsmallball, *newEntity->GetSize());
+
+		movComponent->SetMaxHeight(SCR_HEIGHT / 3 * 2);
 
 		newEntity->AddComponent(movComponent);
 		newEntity->AddComponent(colComponent);
-		//newEntity->AddComponent(rendComponent);
+		newEntity->AddComponent(rendComponent);
 		newEntity->SetIsActive(false);
 
 		CGameLogic::instance()->AddBall(newEntity);
-		//CRenderer::instance()->SetRenderComponent(rendComponent);
+		CRenderer::instance()->SetRenderComponent(rendComponent);
 	}
 }
 

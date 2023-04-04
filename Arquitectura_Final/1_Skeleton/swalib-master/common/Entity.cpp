@@ -36,6 +36,10 @@ float Entity::GetElapsedTime()
 void Entity::SetPosition(vec2& _pos)
 {
 	m_pos = _pos;
+	for (size_t i = 0; i < m_Components.size(); i++)
+	{
+		m_Components[i]->SetPosition(m_pos);
+	}
 }
 
 vec2* Entity::GetPosition()

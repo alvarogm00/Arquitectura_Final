@@ -4,105 +4,30 @@
 #include "RectColliderComponent.h"
 #include "RenderComponent.h"
 #include "../../common/GameLogic.h"
+#include "../../common/Renderer.h"
 
 void AbstractFactory::CreateBalls()
 {
-	//for (size_t i = 0; i < numBalls; i++)
-	//{
-	//	Entity* newEntity = new Entity(starterType);
-	//	MovementComponent* movComponent = new MovementComponent(vec2(0, 0), vec2(0, 0));
-	//	CollisionComponent* colComponent = new CircleCollisionComponent(0.f);
-	//	RenderComponent* rendComponent = new RenderComponent();
-	//	CSprite* spriteComponent = new CSprite(vec2(0, 0), vec2(0, 0), 0);
-
-	//	if (starterType == Entity::BIG_BALL)
-	//	{
-	//		movComponent->SetVelocity(vec2(m_bigVel, -m_bigVel));
-	//		static_cast<CircleCollisionComponent*>(colComponent)->SetRadius(16.f);
-	//		rendComponent->SetGfx(*m_texbigball);
-	//		rendComponent->SetSize(vec2(16.0f * 2.0f, 16.0f * 2.0f));
-	//		spriteComponent->SetGfx(m_texbigball);
-	//	}
-	//	else if (starterType == Entity::MEDIUM_BALL)
-	//	{
-	//		movComponent->SetVelocity(vec2(m_medVel, -m_medVel));
-	//		static_cast<CircleCollisionComponent*>(colComponent)->SetRadius(16.f);
-	//		rendComponent->SetGfx(*m_texmediumball);
-	//		rendComponent->SetSize(vec2(16.0f * 2.0f, 16.0f * 2.0f));
-
-	//	}
-	//	else if (starterType == Entity::SMALL_BALL)
-	//	{
-	//		movComponent->SetVelocity(vec2(m_smallVel, -m_smallVel));
-	//		static_cast<CircleCollisionComponent*>(colComponent)->SetRadius(16.f);
-	//		rendComponent->SetGfx(*m_texsmallball);
-	//		rendComponent->SetSize(vec2(16.0f * 2.0f, 16.0f * 2.0f));
-	//	}
-
-	//	newEntity->AddComponent(movComponent);
-	//	newEntity->AddComponent(colComponent);
-	//	newEntity->AddComponent(rendComponent);
-	//	
-	//	//m_entities.push_back(newEntity);
-	//}
-
-	//for (size_t i = 0; i < numBalls * 2; i++)
-	//{
-	//	Entity* newEntity = new Entity();
-	//	MovementComponent* movComponent = new MovementComponent(vec2(0, 0), vec2(0, 0));
-	//	CollisionComponent* colComponent = new CircleCollisionComponent(0.f);
-	//	RenderComponent* rendComponent = new RenderComponent();
-
-	//	if (starterType == Entity::BIG_BALL)
-	//	{
-	//		newEntity->SetType(Entity::MEDIUM_BALL);
-	//		movComponent->SetVelocity(vec2(m_medVel, -m_medVel));
-	//		static_cast<CircleCollisionComponent*>(colComponent)->SetRadius(16.f);
-	//		rendComponent->SetGfx(*m_texmediumball);
-	//		rendComponent->SetSize(vec2(16.0f * 2.0f, 16.0f * 2.0f));
-	//	}
-	//	else if (starterType == Entity::MEDIUM_BALL)
-	//	{
-	//		newEntity->SetType(Entity::SMALL_BALL);
-	//		movComponent->SetVelocity(vec2(m_smallVel, -m_smallVel));
-	//		static_cast<CircleCollisionComponent*>(colComponent)->SetRadius(16.f);
-	//		rendComponent->SetGfx(*m_texsmallball);
-	//		rendComponent->SetSize(vec2(16.0f * 2.0f, 16.0f * 2.0f));
-	//	}
-
-	//	newEntity->AddComponent(movComponent);
-	//	newEntity->AddComponent(colComponent);
-	//	newEntity->AddComponent(rendComponent);
-	//	newEntity->SetIsActive(false);
-	//}
-
-	//for (size_t i = 0; i < numBalls * 4; i++)
-	//{
-	//	Entity* newEntity = new Entity(Entity::SMALL_BALL);
-	//	MovementComponent* movComponent = new MovementComponent(vec2(0, 0), vec2(m_smallVel, -m_smallVel));
-	//	CollisionComponent* colComponent = new CircleCollisionComponent(16.f);
-	//	RenderComponent* rendComponent = new RenderComponent(*m_texsmallball, vec2(16.0f * 2.0f, 16.0f * 2.0f), nullptr);
-
-	//	newEntity->AddComponent(movComponent);
-	//	newEntity->AddComponent(colComponent);
-	//	newEntity->AddComponent(rendComponent);
-	//	newEntity->SetIsActive(false);
-	//}
 }
 
 void AbstractFactory::CreatePlayer()
 {
     Entity* player = new Entity(Entity::PLAYER);
-		MovementComponent* movement = new MovementComponent(vec2(0,0), vec2(10.f, 0.f));
-		RectColliderComponent* collider = new RectColliderComponent();
-		RenderComponent* render = new RenderComponent(m_texPlayer, m_playerSize);
-    WeaponComponent* weapon = new WeaponComponent();
+		player->SetSize(m_playerSize);
+		MovementComponent* movement = new MovementComponent(vec2(SCR_WIDTH/2.f, 20.f), vec2(100.f, 0.f));
+		RectColliderComponent* collider = new RectColliderComponent(*player->GetSize());
+		RenderComponent* render = new RenderComponent(m_texPlayer, *player->GetSize());
+    WeaponComponent* weapon = new WeaponComponent(m_texWeapon, m_weaponVel.y);
 
+		player->SetIsActive(true);
+		player->SetPosition(vec2(SCR_WIDTH / 2, 36.f));
 		player->AddComponent(movement);
 		player->AddComponent(collider);
 		player->AddComponent(render);
     player->AddComponent(weapon);
+		weapon->SetPosition(*player->GetPosition());
 		CGameLogic::instance()->AddEntity(player);
+		CRenderer::instance()->SetRenderComponent(render);
 }
 
 int AbstractFactory::GetNumBalls()

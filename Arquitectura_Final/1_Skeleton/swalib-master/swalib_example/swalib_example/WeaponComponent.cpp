@@ -9,11 +9,11 @@
 
 WeaponComponent::WeaponComponent(GLuint& _projectileTex, float _projectileVel)
 {
-	 m_projectile = new Entity();
-
-	MovementComponent* movComponent = new MovementComponent(vec2(0, 0), vec2(0, _projectileVel));
-	CollisionComponent* colComponent = new CircleCollisionComponent(8.f);
-	RenderComponent* rendComponent = new RenderComponent(_projectileTex, vec2(8.0f * 2.0f, 8.0f * 2.0f));
+	m_projectile = new Entity();
+	m_projectile->SetSize(vec2(16.f, 16.f));
+	MovementComponent* movComponent = new MovementComponent(vec2(0,0), vec2(0, _projectileVel));
+	CollisionComponent* colComponent = new CircleCollisionComponent(m_projectile->GetSize()->x / 2);
+	RenderComponent* rendComponent = new RenderComponent(_projectileTex, *m_projectile->GetSize());
 
 	m_projectile->SetType(Entity::PROYECTILE);
 	m_projectile->AddComponent(movComponent);
@@ -36,7 +36,7 @@ void WeaponComponent::Slot()
 	{
 		if (!m_projectile->GetIsActive()) 
 		{
-			m_projectile->SetPosition(*m_Owner->GetPosition());
+			m_projectile->SetPosition(m_position);
 			m_projectile->SetIsActive(true);
 		}
 	}

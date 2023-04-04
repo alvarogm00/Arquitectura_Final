@@ -4,9 +4,9 @@
 
 MovementComponent::MovementComponent(vec2 _pos, vec2 _vel)
 {
-	pos = _pos;
+	m_position = _pos;
 	vel = _vel;
-	currentVel = vel;
+	currentVel = _vel;
 	newPosMsg = new NewPosMsg();
 }
 
@@ -25,34 +25,44 @@ void MovementComponent::Slot()
 		else
 			currentVel = vel * 0.f;
 	}
-	pos = pos + vel * elapsedTime;
-	newPosMsg->newPos = pos;
+
+	else if (m_Owner->GetType() == Entity::SMALL_BALL || m_Owner->GetType() == Entity::MEDIUM_BALL || m_Owner->GetType() == Entity::BIG_BALL)
+	{
+		if ((m_position + currentVel * elapsedTime).y > maxHeight)
+		{
+			currentVel.y *= -1;
+		}
+	}
+	m_position = m_position + currentVel * elapsedTime;
+	newPosMsg->newPos = m_position;
 	m_Owner->ReceiveMessage(newPosMsg);
 }
 
 void MovementComponent::SetVelocity(vec2& _vel)
 {
 	vel = _vel;
+	currentVel = _vel;
 }
 
 vec2 MovementComponent::GetVelocity()
 {
-	return vel;
+	return currentVel;
 }
 
-void MovementComponent::SetPosition(vec2& _pos)
-{
-	pos = _pos;
-}
 
 vec2* MovementComponent::GetPosition()
 {
-	return &pos;
+	return &m_position;
 }
 
 void MovementComponent::SetElapsedTime(float _elapsedTime)
 {
 	elapsedTime = _elapsedTime;
+}
+
+void MovementComponent::SetMaxHeight(float _maxHeight)
+{
+	maxHeight = _maxHeight;
 }
 
 void MovementComponent::RecieveMessage(Message* msg)
@@ -63,14 +73,14 @@ void MovementComponent::RecieveMessage(Message* msg)
 	{
 		if (m_Owner->GetType() == Entity::BIG_BALL || m_Owner->GetType() == Entity::MEDIUM_BALL || m_Owner->GetType() == Entity::SMALL_BALL)
 		{
-			vel *= -1.f;
+			currentVel *= -1.f;
 		}
 	}
 	else if (verMsg) 
 	{
 		if (m_Owner->GetType() == Entity::BIG_BALL || m_Owner->GetType() == Entity::MEDIUM_BALL || m_Owner->GetType() == Entity::SMALL_BALL)
 		{
-			vel.y *= -1.f;
+			currentVel.y *= -1.f;
 		}
 	}
 	//LimitWorldCollMsg* limitMsg = dynamic_cast<LimitWorldCollMsg*>(msg);

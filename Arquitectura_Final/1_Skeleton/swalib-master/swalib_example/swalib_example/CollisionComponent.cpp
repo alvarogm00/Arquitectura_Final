@@ -16,14 +16,9 @@ void CollisionComponent::RecieveMessage(Message* _msg)
 {
 }
 
-void CollisionComponent::SetPos(vec2& _newPos)
-{
-	newPos = _newPos;
-}
-
 vec2* CollisionComponent::GetPosition()
 {
-	return &pos;
+	return &m_position;
 }
 
 float CollisionComponent::Clamp(float _value, float _minvalue, float _maxValue)
@@ -65,4 +60,9 @@ bool CollisionComponent::checkCircleRect(const vec2& circlePos, float circleRadi
 	}
 	else
 		return false;
+}
+
+void CollisionComponent::SetNewPosition(vec2 _newPos)
+{
+	newPos = _newPos;
 }

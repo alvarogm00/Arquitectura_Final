@@ -1,10 +1,21 @@
 #include "CSprite.h"
 #include "core.h";
+#include "../swalib_example/swalib_example/RenderComponent.h"
 
 CSprite::CSprite(vec2 _pos, vec2 _size, GLuint _gfx)
 {
 	SetPos(_pos);
 	SetSize(_size);
+}
+
+CSprite::~CSprite()
+{
+	End();
+}
+
+void CSprite::SetOwner(RenderComponent* _Owner)
+{
+	m_Owner = _Owner;
 }
 
 vec2 CSprite::GetPos() const
@@ -39,5 +50,10 @@ void CSprite::SetGfx(GLuint& _gfx)
 
 void CSprite::Draw()
 {
-	CORE_RenderCenteredSprite(GetPos(), GetSize(), GetGfx());
+	CORE_RenderCenteredSprite(m_Owner->GetPos(), GetSize(), GetGfx());
+}
+
+void CSprite::End()
+{
+	CORE_UnloadPNG(gfx);
 }

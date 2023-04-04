@@ -27,7 +27,7 @@ void CRenderer::InitRender()
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);	// Blend func. for alpha color.
 }
 
-void CRenderer::Draw(GLuint* _texbkg, float _elapsedTime, float _totalTime, float _logicTime /*CSprite* _sprites[], int _size*/)
+void CRenderer::Draw(GLuint* _texbkg)
 {
 	glClear(GL_COLOR_BUFFER_BIT);	// Clear color buffer to preset values.
 
@@ -39,21 +39,22 @@ void CRenderer::Draw(GLuint* _texbkg, float _elapsedTime, float _totalTime, floa
 	}
 
 	//// Render balls
-	for (int i = 0; i < 10; i++) {
-		m_renderComponents[i]->Slot();
+	for (int i = 0; i < m_renderComponents.size(); i++) 
+	{
+		m_renderComponents[i]->Draw();
 	}
 
 	 //Text
-	float fps = 1 / _elapsedTime;
-	char str[30];
-	sprintf(str, "FPS: %.2f", fps);
-	FONT_DrawString(vec2(SCR_WIDTH / 2 + 9 * 16, 16), str);
-	char str1[30];
-	sprintf(str1, "TT: %.2f", _totalTime);
-	FONT_DrawString(vec2(SCR_WIDTH / 2 - 20 * 16, 16), str1);
-	char str2[30];
-	sprintf(str2, "TLT: %.2f", _logicTime);
-	FONT_DrawString(vec2(SCR_WIDTH / 2 - 6 * 16, 16), str2);
+	//float fps = 1 / _elapsedTime;
+	//char str[30];
+	//sprintf(str, "FPS: %.2f", fps);
+	//FONT_DrawString(vec2(SCR_WIDTH / 2 + 9 * 16, 16), str);
+	//char str1[30];
+	//sprintf(str1, "TT: %.2f", _totalTime);
+	//FONT_DrawString(vec2(SCR_WIDTH / 2 - 20 * 16, 16), str1);
+	//char str2[30];
+	//sprintf(str2, "TLT: %.2f", _logicTime);
+	//FONT_DrawString(vec2(SCR_WIDTH / 2 - 6 * 16, 16), str2);
 
 	// Exchanges the front and back buffers
 	SYS_Show();
@@ -62,17 +63,21 @@ void CRenderer::Draw(GLuint* _texbkg, float _elapsedTime, float _totalTime, floa
 	//SYS_Sleep(17);	// To force 60 fps
 }
 
-void CRenderer::End(GLuint* _texsmallball, GLuint* _texbkg)
+void CRenderer::End(GLuint* _texbkg)
 {
 	// Unload textures.
 	CORE_UnloadPNG(*_texbkg);
-	//CORE_UnloadPNG(*_texsmallball);
 	FONT_End();
 }
 
 void CRenderer::SetRenderComponent(RenderComponent* _renderComponent)
 {
 	m_renderComponents.push_back(_renderComponent);
+}
+
+void CRenderer::Clear()
+{
+	m_renderComponents.clear();	// Clear color buffer to preset values.
 }
 
 CRenderer::CRenderer() {}

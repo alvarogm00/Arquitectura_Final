@@ -1,29 +1,5 @@
-﻿  Entity.cpp
-E:\Apuntes\Master\Ingenieria\Arquitectura_Final\Arquitectura_Final\1_Skeleton\swalib-master\common\SBall.h(6,10): warning C4067: símbolos (token) inesperados después de la directiva del preprocesador; se esperaba una nueva línea
-  GameLogic.cpp
-E:\Apuntes\Master\Ingenieria\Arquitectura_Final\Arquitectura_Final\1_Skeleton\swalib-master\common\SBall.h(6,10): warning C4067: símbolos (token) inesperados después de la directiva del preprocesador; se esperaba una nueva línea
-E:\Apuntes\Master\Ingenieria\Arquitectura_Final\Arquitectura_Final\1_Skeleton\swalib-master\common\GameLogic.cpp(39,20): warning C4018: '<': no coinciden signed/unsigned
-  Renderer.cpp
-E:\Apuntes\Master\Ingenieria\Arquitectura_Final\Arquitectura_Final\1_Skeleton\swalib-master\common\SBall.h(6,10): warning C4067: símbolos (token) inesperados después de la directiva del preprocesador; se esperaba una nueva línea
-  SBall.cpp
-E:\Apuntes\Master\Ingenieria\Arquitectura_Final\Arquitectura_Final\1_Skeleton\swalib-master\common\SBall.h(6,10): warning C4067: símbolos (token) inesperados después de la directiva del preprocesador; se esperaba una nueva línea
-  example.cpp
-E:\Apuntes\Master\Ingenieria\Arquitectura_Final\Arquitectura_Final\1_Skeleton\swalib-master\common\SBall.h(6,10): warning C4067: símbolos (token) inesperados después de la directiva del preprocesador; se esperaba una nueva línea
-  AbstractFactory.cpp
-E:\Apuntes\Master\Ingenieria\Arquitectura_Final\Arquitectura_Final\1_Skeleton\swalib-master\common\SBall.h(6,10): warning C4067: símbolos (token) inesperados después de la directiva del preprocesador; se esperaba una nueva línea
-E:\Apuntes\Master\Ingenieria\Arquitectura_Final\Arquitectura_Final\1_Skeleton\swalib-master\swalib_example\swalib_example\AbstractFactory.cpp(99,50): error C2512: 'WeaponComponent::WeaponComponent': no hay disponible un constructor predeterminado adecuado
-  CircleCollisionComponent.cpp
-E:\Apuntes\Master\Ingenieria\Arquitectura_Final\Arquitectura_Final\1_Skeleton\swalib-master\common\SBall.h(6,10): warning C4067: símbolos (token) inesperados después de la directiva del preprocesador; se esperaba una nueva línea
-  Lvl1Factory.cpp
-E:\Apuntes\Master\Ingenieria\Arquitectura_Final\Arquitectura_Final\1_Skeleton\swalib-master\common\SBall.h(6,10): warning C4067: símbolos (token) inesperados después de la directiva del preprocesador; se esperaba una nueva línea
-  Lvl2Factory.cpp
-E:\Apuntes\Master\Ingenieria\Arquitectura_Final\Arquitectura_Final\1_Skeleton\swalib-master\common\SBall.h(6,10): warning C4067: símbolos (token) inesperados después de la directiva del preprocesador; se esperaba una nueva línea
-  MovementComponent.cpp
-E:\Apuntes\Master\Ingenieria\Arquitectura_Final\Arquitectura_Final\1_Skeleton\swalib-master\swalib_example\swalib_example\MovementComponent.cpp(63,90): error C2059: error de sintaxis: ')'
+﻿  MovementComponent.cpp
   RectColliderComponent.cpp
 E:\Apuntes\Master\Ingenieria\Arquitectura_Final\Arquitectura_Final\1_Skeleton\swalib-master\common\SBall.h(6,10): warning C4067: símbolos (token) inesperados después de la directiva del preprocesador; se esperaba una nueva línea
-  RenderComponent.cpp
-E:\Apuntes\Master\Ingenieria\Arquitectura_Final\Arquitectura_Final\1_Skeleton\swalib-master\common\SBall.h(6,10): warning C4067: símbolos (token) inesperados después de la directiva del preprocesador; se esperaba una nueva línea
-  WeaponComponent.cpp
-E:\Apuntes\Master\Ingenieria\Arquitectura_Final\Arquitectura_Final\1_Skeleton\swalib-master\common\SBall.h(6,10): warning C4067: símbolos (token) inesperados después de la directiva del preprocesador; se esperaba una nueva línea
   Generando código...
+  swalib_example.vcxproj -> E:\Apuntes\Master\Ingenieria\Arquitectura_Final\Arquitectura_Final\1_Skeleton\swalib-master\swalib_example\Debug\swalib_example.exe
