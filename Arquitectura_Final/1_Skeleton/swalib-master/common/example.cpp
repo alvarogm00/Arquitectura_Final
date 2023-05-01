@@ -19,13 +19,13 @@ int Main(void)
 	GLuint texprojectileball = CORE_LoadPNG("data/projectile.png", false);
 	GLuint texplayer = CORE_LoadPNG("data/player.png", false);
 
-	Lvl1Factory* factory = new Lvl1Factory(1, 60.f, 80.f, 120.f, Entity::MEDIUM_BALL, texsmallball, texmedball, texbigball, texplayer, vec2(30.f, 36.f), texprojectileball, vec2(250.f, 250.f));
-	Lvl2Factory* factory2 = new Lvl2Factory(1, 60.f, 80.f, 120.f, Entity::BIG_BALL, texsmallball, texmedball, texbigball, texplayer, vec2(30.f, 36.f), texprojectileball, vec2(250.f, 250.f));
+	Lvl1Factory* factory = new Lvl1Factory(3, 60.f, 80.f, 120.f, Entity::MEDIUM_BALL, texsmallball, texmedball, texbigball, texplayer, vec2(30.f, 36.f), texprojectileball, vec2(250.f, 250.f));
+	Lvl2Factory* factory2 = new Lvl2Factory(2, 60.f, 80.f, 120.f, Entity::BIG_BALL, texsmallball, texmedball, texbigball, texplayer, vec2(30.f, 36.f), texprojectileball, vec2(250.f, 250.f));
 	// Control tiempo
 	_fixedTick* timer = new _fixedTick(60.0f);
 
 	CGameLogic::instance()->AddFactory(factory);
-	//CGameLogic::instance()->AddFactory(factory2);
+	CGameLogic::instance()->AddFactory(factory2);
 
 	CGameLogic::instance()->InitGameLogic(factory);
 	CRenderer::instance()->InitRender();
